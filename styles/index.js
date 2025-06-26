@@ -1,15 +1,24 @@
 import { StyleSheet } from "react-native"
 
-export const colors = {
+export const lightColors = {
   primary: "#6366f1",
   backgroundColor: "#f8fafc",
   cardColor: "#f9fafb",
   textColor: "#1f2937",
   textColorSecondary: "#6b7280",
   textColorTertiary: "#ffffff",
-}
+};
 
-export const sharedStyles = StyleSheet.create({
+export const darkColors = {
+  primary: "#6366f1",
+  backgroundColor: "#18181b",
+  cardColor: "#27272a",
+  textColor: "#f3f4f6",
+  textColorSecondary: "#a1a1aa",
+  textColorTertiary: "#18181b",
+};
+
+export const createSharedStyles = (colors) => StyleSheet.create({
   // Layout
   container: {
     flex: 1,
@@ -160,5 +169,5 @@ export const sharedStyles = StyleSheet.create({
     color: colors.textColor,
     marginBottom: 2,
   },
-})
+});
 

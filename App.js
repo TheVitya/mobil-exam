@@ -13,17 +13,18 @@ import WeatherScreen from "./screens/WeatherScreen"
 import LoginScreen from "./screens/LoginScreen"
 import MenuScreen from "./screens/MenuScreen"
 import ProfileScreen from "./screens/ProfileScreen"
-import { colors } from "./styles"
 import { ROUTES } from "./constants"
 import { Ionicons } from '@expo/vector-icons'
 import I18nProvider from "./providers/I18nProvider"
 import { useTranslation } from "react-i18next"
+import { ThemeProvider, useTheme } from './providers/ThemeProvider'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 function MainTabs() {
   const { t } = useTranslation()
+  const { colors } = useTheme()
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -50,6 +51,7 @@ function MainTabs() {
 function MainNavigator() {
   const { user } = useUser()
   const { t } = useTranslation()
+  const { colors } = useTheme()
 
   return (
     <Stack.Navigator
@@ -78,14 +80,16 @@ function MainNavigator() {
 
 export default function App() {
   return (
-    <I18nProvider>
-      <QueryProvider>
-        <UserProvider>
-          <NavigationContainer>
-            <MainNavigator />
-          </NavigationContainer>
-        </UserProvider>
-      </QueryProvider>
-    </I18nProvider>
+    <ThemeProvider>
+      <I18nProvider>
+        <QueryProvider>
+          <UserProvider>
+            <NavigationContainer>
+              <MainNavigator />
+            </NavigationContainer>
+          </UserProvider>
+        </QueryProvider>
+      </I18nProvider>
+    </ThemeProvider>
   )
 }

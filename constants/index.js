@@ -15,4 +15,5 @@ export const ROUTES = {
 export const MMKV_KEYS = {
   USER: 'user',
   LANGUAGE: 'language',
+  THEME: 'theme',
 }
