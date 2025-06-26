@@ -35,6 +35,10 @@ export const sharedStyles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 16,
   },
+  headerColumn: {
+    flex: 1,
+    marginBottom: 16,
+  },
   headerRowStart: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -121,6 +125,10 @@ export const sharedStyles = StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
+    marginBottom: 16,
+  },
+  gridColumn: {
+    flex: 1,
     marginBottom: 16,
   },
   gridItem: {

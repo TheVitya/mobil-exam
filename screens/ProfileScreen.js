@@ -1,17 +1,20 @@
 import React from "react"
 import { View, Text, StyleSheet, SafeAreaView } from "react-native"
 import { useTranslation } from "react-i18next"
+import { useUser } from "../providers/UserProvider"
 
 export default function ProfileScreen() {
   const { t } = useTranslation()
+  const { user } = useUser()
+  console.log(user)
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{t("profile")}</Text>
       <View style={styles.infoBox}>
         <Text style={styles.label}>{t("name")}</Text>
-        <Text style={styles.value}>John Doe</Text>
+        <Text style={styles.value}>{user.name}</Text>
         <Text style={styles.label}>{t("emailLabel")}</Text>
-        <Text style={styles.value}>john.doe@example.com</Text>
+        <Text style={styles.value}>{user.email}</Text>
       </View>
     </SafeAreaView>
   )

@@ -1,54 +1,57 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from "react-native"
 import { useTranslation } from "react-i18next"
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { ROUTES } from "../constants"
-
-const dataCategories = [
-  {
-    title: "Titanic Passengers",
-    description: "Historical passenger data from the Titanic",
-    screen: ROUTES.PASSENGERS,
-    icon: "🚢",
-    color: "#3b82f6",
-  },
-  {
-    title: "People Directory",
-    description: "User profiles with contact information",
-    screen: ROUTES.PEOPLE,
-    icon: "👥",
-    color: "#10b981",
-  },
-  {
-    title: "Weather Data",
-    description: "Meteorological observations and forecasts",
-    screen: ROUTES.WEATHER,
-    icon: "🌤️",
-    color: "#f59e0b",
-  },
-  {
-    title: "Iris Dataset",
-    description: "Botanical measurements of iris flowers",
-    screen: ROUTES.IRIS,
-    icon: "🌸",
-    color: "#ec4899",
-  },
-  {
-    title: "House Pricing",
-    description: "Real estate property information",
-    screen: ROUTES.HOUSE_PRICING,
-    icon: "🏠",
-    color: "#8b5cf6",
-  },
-  {
-    title: "Countries",
-    description: "Global country information and details",
-    screen: ROUTES.COUNTRIES,
-    icon: "🌍",
-    color: "#ef4444",
-  },
-]
+import { colors, sharedStyles } from "../styles"
 
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation()
+
+  const dataCategories = [
+    {
+      title: t("titanicPassengers"),
+      description: t("titanicPassengersDesc"),
+      screen: ROUTES.PASSENGERS,
+      icon: "🚢",
+      color: colors.primary,
+    },
+    {
+      title: t("peopleDirectory"),
+      description: t("peopleDirectoryDesc"),
+      screen: ROUTES.PEOPLE,
+      icon: "👥",
+      color: colors.secondary,
+    },
+    {
+      title: t("weatherData"),
+      description: t("weatherDataDesc"),
+      screen: ROUTES.WEATHER,
+      icon: "🌤️",
+      color: colors.tertiary,
+    },
+    {
+      title: t("irisDataset"),
+      description: t("irisDatasetDesc"),
+      screen: ROUTES.IRIS,
+      icon: "🌸",
+      color: colors.quaternary,
+    },
+    {
+      title: t("housePricing"),
+      description: t("housePricingDesc"),
+      screen: ROUTES.HOUSE_PRICING,
+      icon: "🏠",
+      color: colors.quinary,
+    },
+    {
+      title: t("countries"),
+      description: t("countriesDesc"),
+      screen: ROUTES.COUNTRIES,
+      icon: "🌍",
+      color: colors.senary,
+    },
+  ]
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
@@ -57,7 +60,7 @@ export default function HomeScreen({ navigation }) {
           <Text style={styles.subtitle}>{t("exploreDatasets")}</Text>
         </View>
 
-        <View style={styles.grid}>
+        <View style={styles.gridColumn}>
           {dataCategories.map((category, index) => (
             <TouchableOpacity
               key={index}
@@ -81,10 +84,7 @@ export default function HomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8fafc",
-  },
+  ...sharedStyles,
   scrollContent: {
     padding: 20,
   },
@@ -102,23 +102,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#6b7280",
     textAlign: "center",
-  },
-  grid: {
-    gap: 16,
-  },
-  card: {
-    backgroundColor: "#ffffff",
-    borderRadius: 12,
-    padding: 20,
-    borderLeftWidth: 4,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
   },
   cardContent: {
     flexDirection: "row",
