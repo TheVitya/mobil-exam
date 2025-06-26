@@ -2,13 +2,14 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native"
 import { useCountries } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
+import { sharedStyles } from "../styles"
 
 export default function CountriesScreen() {
   const { data: countries, isLoading, error, refetch } = useCountries()
 
   const renderCountry = ({ item }) => (
     <View style={styles.card}>
-      <View style={styles.header}>
+      <View style={styles.headerRow}>
         <View style={styles.titleRow}>
           <Text style={styles.emoji}>{item.emoji}</Text>
           <View style={styles.titleInfo}>
@@ -84,33 +85,7 @@ export default function CountriesScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8fafc",
-  },
-  list: {
-    padding: 16,
-  },
-  card: {
-    backgroundColor: "#ffffff",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 16,
-  },
+  ...sharedStyles,
   titleRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -151,11 +126,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 8,
-  },
-  label: {
-    fontSize: 14,
-    color: "#6b7280",
-    fontWeight: "500",
   },
   value: {
     fontSize: 14,

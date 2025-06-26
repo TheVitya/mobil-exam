@@ -2,13 +2,14 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native"
 import { useWeather } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
+import { sharedStyles } from "../styles"
 
 export default function WeatherScreen() {
   const { data: weather, isLoading, error, refetch } = useWeather()
 
   const renderWeatherItem = ({ item, index }) => (
     <View style={styles.card}>
-      <View style={styles.header}>
+      <View style={styles.headerRow}>
         <Text style={styles.title}>Day {index + 1}</Text>
         <View style={styles.tempRange}>
           <Text style={styles.minTemp}>{item.MinTemp}°</Text>
@@ -47,8 +48,8 @@ export default function WeatherScreen() {
       </View>
 
       <View style={styles.footer}>
-        <View style={[styles.rainBadge, { backgroundColor: item.RainTomorrow === "Yes" ? "#3b82f6" : "#10b981" }]}>
-          <Text style={styles.rainText}>Rain Tomorrow: {item.RainTomorrow}</Text>
+        <View style={[styles.badge, { backgroundColor: item.RainTomorrow === "Yes" ? "#3b82f6" : "#10b981" }]}>
+          <Text style={styles.badgeText}>Rain Tomorrow: {item.RainTomorrow}</Text>
         </View>
       </View>
     </View>
@@ -78,38 +79,7 @@ export default function WeatherScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8fafc",
-  },
-  list: {
-    padding: 16,
-  },
-  card: {
-    backgroundColor: "#ffffff",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 16,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#1f2937",
-  },
+  ...sharedStyles,
   tempRange: {
     flexDirection: "row",
     alignItems: "center",
@@ -129,36 +99,7 @@ const styles = StyleSheet.create({
     color: "#ef4444",
     fontWeight: "500",
   },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginBottom: 16,
-  },
-  gridItem: {
-    width: "50%",
-    paddingVertical: 8,
-  },
-  label: {
-    fontSize: 12,
-    color: "#6b7280",
-    marginBottom: 2,
-  },
-  value: {
-    fontSize: 14,
-    color: "#1f2937",
-    fontWeight: "500",
-  },
   footer: {
     alignItems: "center",
-  },
-  rainBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-  },
-  rainText: {
-    color: "#ffffff",
-    fontSize: 12,
-    fontWeight: "500",
   },
 })

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, Linki
 import { usePeople } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
+import { sharedStyles } from "../styles"
 
 export default function PeopleScreen() {
   const { data: people, isLoading, error, refetch } = usePeople()
@@ -20,9 +21,9 @@ export default function PeopleScreen() {
 
   const renderPerson = ({ item }) => (
     <View style={styles.card}>
-      <View style={styles.header}>
-        <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.username}>@{item.username}</Text>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.subtitle}>@{item.username}</Text>
       </View>
 
       <View style={styles.section}>
@@ -84,59 +85,7 @@ export default function PeopleScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#f8fafc",
-  },
-  list: {
-    padding: 16,
-  },
-  card: {
-    backgroundColor: "#ffffff",
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  header: {
-    marginBottom: 16,
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#1f2937",
-    marginBottom: 4,
-  },
-  username: {
-    fontSize: 14,
-    color: "#6b7280",
-  },
-  section: {
-    marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#374151",
-    marginBottom: 8,
-  },
-  text: {
-    fontSize: 14,
-    color: "#6b7280",
-    marginBottom: 2,
-  },
-  link: {
-    fontSize: 14,
-    color: "#3b82f6",
-    marginBottom: 2,
-  },
+  ...sharedStyles,
   companyName: {
     fontSize: 16,
     fontWeight: "500",
