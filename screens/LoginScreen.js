@@ -6,7 +6,7 @@ import LoadingSpinner from "../components/LoadingSpinner"
 import { usePeople } from "../hooks/useDataQueries"
 import { useUser } from "../providers/UserProvider"
 import { colors } from "../styles"
-import { ROUTES } from "../App"
+import { ROUTES } from "../constants"
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("")

@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from "react-native"
-import { ROUTES } from "../App"
+import { ROUTES } from "../constants"
 
 const dataCategories = [
   {
