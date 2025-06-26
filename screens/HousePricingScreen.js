@@ -3,9 +3,11 @@ import { useHousePricing } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
 import { sharedStyles } from "../styles"
+import { useTranslation } from "react-i18next"
 
 export default function HousePricingScreen() {
   const { data: houses, isLoading, error, refetch } = useHousePricing()
+  const { t } = useTranslation()
 
   const formatPrice = (price) => {
     const numPrice = typeof price === "string" ? Number.parseInt(price) : price
@@ -33,63 +35,63 @@ export default function HousePricingScreen() {
       <View style={styles.basicInfo}>
         <View style={styles.infoItem}>
           <Text style={styles.infoValueLarge}>{item.bedrooms}</Text>
-          <Text style={styles.infoLabel}>Bedrooms</Text>
+          <Text style={styles.infoLabel}>{t("bedrooms")}</Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoValueLarge}>{item.bathrooms}</Text>
-          <Text style={styles.infoLabel}>Bathrooms</Text>
+          <Text style={styles.infoLabel}>{t("bathrooms")}</Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoValueLarge}>{item.stories}</Text>
-          <Text style={styles.infoLabel}>Stories</Text>
+          <Text style={styles.infoLabel}>{t("stories")}</Text>
         </View>
         <View style={styles.infoItem}>
           <Text style={styles.infoValueLarge}>{item.area}</Text>
-          <Text style={styles.infoLabel}>Sq Ft</Text>
+          <Text style={styles.infoLabel}>{t("sqFt")}</Text>
         </View>
       </View>
 
       <View style={styles.features}>
-        <Text style={styles.featuresTitle}>Features</Text>
+        <Text style={styles.featuresTitle}>{t("features")}</Text>
         <View style={styles.featureGrid}>
           <View style={styles.feature}>
-            <Text style={[styles.text, { color: item.mainroad === "yes" ? "#10b981" : "#ef4444" }]}>
-              {item.mainroad === "yes" ? "✓" : "✗"} Main Road
+            <Text style={[styles.text, { color: item.mainroad === "yes" ? "#10b981" : "#ef4444" }]}> 
+              {item.mainroad === "yes" ? "✓" : "✗"} {t("mainRoad")}
             </Text>
           </View>
           <View style={styles.feature}>
-            <Text style={[styles.text, { color: item.guestroom === "yes" ? "#10b981" : "#ef4444" }]}>
-              {item.guestroom === "yes" ? "✓" : "✗"} Guest Room
+            <Text style={[styles.text, { color: item.guestroom === "yes" ? "#10b981" : "#ef4444" }]}> 
+              {item.guestroom === "yes" ? "✓" : "✗"} {t("guestRoom")}
             </Text>
           </View>
           <View style={styles.feature}>
-            <Text style={[styles.text, { color: item.basement === "yes" ? "#10b981" : "#ef4444" }]}>
-              {item.basement === "yes" ? "✓" : "✗"} Basement
+            <Text style={[styles.text, { color: item.basement === "yes" ? "#10b981" : "#ef4444" }]}> 
+              {item.basement === "yes" ? "✓" : "✗"} {t("basement")}
             </Text>
           </View>
           <View style={styles.feature}>
-            <Text style={[styles.text, { color: item.airconditioning === "yes" ? "#10b981" : "#ef4444" }]}>
-              {item.airconditioning === "yes" ? "✓" : "✗"} A/C
+            <Text style={[styles.text, { color: item.airconditioning === "yes" ? "#10b981" : "#ef4444" }]}> 
+              {item.airconditioning === "yes" ? "✓" : "✗"} {t("ac")}
             </Text>
           </View>
           <View style={styles.feature}>
-            <Text style={[styles.text, { color: item.hotwaterheating === "yes" ? "#10b981" : "#ef4444" }]}>
-              {item.hotwaterheating === "yes" ? "✓" : "✗"} Hot Water
+            <Text style={[styles.text, { color: item.hotwaterheating === "yes" ? "#10b981" : "#ef4444" }]}> 
+              {item.hotwaterheating === "yes" ? "✓" : "✗"} {t("hotWater")}
             </Text>
           </View>
           <View style={styles.feature}>
-            <Text style={[styles.text, { color: item.hotwaterheating === "yes" ? "#10b981" : "#ef4444" }]}>
-              {item.prefarea === "yes" ? "✓" : "✗"} Preferred Area
+            <Text style={[styles.text, { color: item.prefarea === "yes" ? "#10b981" : "#ef4444" }]}> 
+              {item.prefarea === "yes" ? "✓" : "✗"} {t("preferredArea")}
             </Text>
           </View>
         </View>
-        <Text style={styles.text}>Parking: {item.parking} spaces</Text>
+        <Text style={styles.text}>{t("parking", { count: item.parking })}</Text>
       </View>
     </View>
   )
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading house data..." />
+    return <LoadingSpinner message={t("loadingHouse")} />
   }
 
   if (error) {

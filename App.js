@@ -16,6 +16,7 @@ import ProfileScreen from "./screens/ProfileScreen"
 import { colors } from "./styles"
 import { ROUTES } from "./constants"
 import { Ionicons } from '@expo/vector-icons'
+import I18nProvider from "./providers/I18nProvider"
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -74,12 +75,14 @@ function MainNavigator() {
 
 export default function App() {
   return (
-    <QueryProvider>
-      <UserProvider>
-        <NavigationContainer>
-          <MainNavigator />
-        </NavigationContainer>
-      </UserProvider>
-    </QueryProvider>
+    <I18nProvider>
+      <QueryProvider>
+        <UserProvider>
+          <NavigationContainer>
+            <MainNavigator />
+          </NavigationContainer>
+        </UserProvider>
+      </QueryProvider>
+    </I18nProvider>
   )
 }

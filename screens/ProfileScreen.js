@@ -1,14 +1,16 @@
 import React from "react"
 import { View, Text, StyleSheet, SafeAreaView } from "react-native"
+import { useTranslation } from "react-i18next"
 
 export default function ProfileScreen() {
+  const { t } = useTranslation()
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
+      <Text style={styles.title}>{t("profile")}</Text>
       <View style={styles.infoBox}>
-        <Text style={styles.label}>Name:</Text>
+        <Text style={styles.label}>{t("name")}</Text>
         <Text style={styles.value}>John Doe</Text>
-        <Text style={styles.label}>Email:</Text>
+        <Text style={styles.label}>{t("emailLabel")}</Text>
         <Text style={styles.value}>john.doe@example.com</Text>
       </View>
     </SafeAreaView>

@@ -3,9 +3,11 @@ import { useCountries } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
 import { sharedStyles } from "../styles"
+import { useTranslation } from "react-i18next"
 
 export default function CountriesScreen() {
   const { data: countries, isLoading, error, refetch } = useCountries()
+  const { t } = useTranslation()
 
   const renderCountry = ({ item }) => (
     <View style={styles.card}>
@@ -24,35 +26,35 @@ export default function CountriesScreen() {
 
       <View style={styles.details}>
         <View style={styles.row}>
-          <Text style={styles.label}>Capital:</Text>
+          <Text style={styles.label}>{t("capital")}</Text>
           <Text style={styles.value}>{item.capital}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Region:</Text>
+          <Text style={styles.label}>{t("region")}</Text>
           <Text style={styles.value}>
             {item.region}
             {item.subregion ? `, ${item.subregion}` : ""}
           </Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Currency:</Text>
+          <Text style={styles.label}>{t("currency")}</Text>
           <Text style={styles.value}>
             {item.currency_name} ({item.currency_symbol})
           </Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Phone Code:</Text>
+          <Text style={styles.label}>{t("phoneCode")}</Text>
           <Text style={styles.value}>+{item.phone_code}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Domain:</Text>
+          <Text style={styles.label}>{t("domain")}</Text>
           <Text style={styles.value}>{item.tld}</Text>
         </View>
       </View>
 
       {item.timezones && item.timezones.length > 0 && (
         <View style={styles.timezone}>
-          <Text style={styles.timezoneTitle}>Timezone</Text>
+          <Text style={styles.timezoneTitle}>{t("timezone")}</Text>
           <Text style={styles.timezoneInfo}>
             {item.timezones[0]?.tzName} ({item.timezones[0]?.gmtOffsetName})
           </Text>
@@ -62,7 +64,7 @@ export default function CountriesScreen() {
   )
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading countries..." />
+    return <LoadingSpinner message={t("loadingCountries")} />
   }
 
   if (error) {

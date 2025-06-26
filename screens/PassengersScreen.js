@@ -5,6 +5,7 @@ import ErrorMessage from "../components/ErrorMessage"
 import { Picker } from '@react-native-picker/picker'
 import { useState, useMemo } from "react"
 import { sharedStyles } from "../styles"
+import { useTranslation } from "react-i18next"
 
 export default function PassengersScreen() {
   const { data: passengers, isLoading, error, refetch } = usePassengers()
@@ -12,16 +13,17 @@ export default function PassengersScreen() {
   const [filterPclass, setFilterPclass] = useState("All")
   const [filterSurvived, setFilterSurvived] = useState("All")
   const [filterName, setFilterName] = useState("")
+  const { t } = useTranslation()
 
   const filteredPassengers = useMemo(() => {
     if (!passengers) return []
     return passengers.filter((p) => {
-      const matchPclass = filterPclass === "All" || String(p.Pclass) === String(filterPclass)
-      const matchSurvived = filterSurvived === "All" || (filterSurvived === "Survived" ? p.Survived : !p.Survived)
+      const matchPclass = filterPclass === t("all") || String(p.Pclass) === String(filterPclass)
+      const matchSurvived = filterSurvived === t("all") || (filterSurvived === t("survived") ? p.Survived : !p.Survived)
       const matchName = p.Name.toLowerCase().includes(filterName.toLowerCase())
       return matchPclass && matchSurvived && matchName
     })
-  }, [passengers, filterPclass, filterSurvived, filterName])
+  }, [passengers, filterPclass, filterSurvived, filterName, t])
 
   const sortedPassengers = useMemo(() => {
     return [...filteredPassengers].sort((a, b) => {
@@ -36,37 +38,37 @@ export default function PassengersScreen() {
       <View style={styles.headerRow}>
         <Text style={styles.name}>{item.Name}</Text>
         <View style={[styles.badge, { backgroundColor: item.Survived ? "#10b981" : "#ef4444" }]}>
-          <Text style={styles.badgeText}>{item.Survived ? "Survived" : "Did not survive"}</Text>
+          <Text style={styles.badgeText}>{item.Survived ? t("survived") : t("didNotSurvive")}</Text>
         </View>
       </View>
 
       <View style={styles.details}>
         <View style={styles.row}>
-          <Text style={styles.label}>Class:</Text>
+          <Text style={styles.label}>{t("class")}</Text>
           <Text style={styles.value}>{item.Pclass}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Sex:</Text>
+          <Text style={styles.label}>{t("sex")}</Text>
           <Text style={styles.value}>{item.Sex}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Age:</Text>
-          <Text style={styles.value}>{item.Age || "Unknown"}</Text>
+          <Text style={styles.label}>{t("age")}</Text>
+          <Text style={styles.value}>{item.Age || t("unknown")}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Fare:</Text>
-          <Text style={styles.value}>${item.Fare ? item.Fare.toFixed(2) : "N/A"}</Text>
+          <Text style={styles.label}>{t("fare")}</Text>
+          <Text style={styles.value}>${item.Fare ? item.Fare.toFixed(2) : t("na")}</Text>
         </View>
         <View style={styles.row}>
-          <Text style={styles.label}>Embarked:</Text>
-          <Text style={styles.value}>{item.Embarked || "Unknown"}</Text>
+          <Text style={styles.label}>{t("embarked")}</Text>
+          <Text style={styles.value}>{item.Embarked || t("unknown")}</Text>
         </View>
       </View>
     </View>
   )
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading passengers..." />
+    return <LoadingSpinner message={t("loadingPassengers")} />
   }
 
   if (error) {
@@ -77,50 +79,57 @@ export default function PassengersScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.filterContainer}>
         <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>Class:</Text>
+          <Text style={styles.filterLabel}>{t("class")}</Text>
           <Picker
             selectedValue={filterPclass}
             style={styles.picker}
             onValueChange={setFilterPclass}
           >
-            <Picker.Item label="All" value="All" />
-            <Picker.Item label="1" value="1" />
-            <Picker.Item label="2" value="2" />
-            <Picker.Item label="3" value="3" />
+            <Picker.Item label={t("all")}
+              value={t("all")} />
+            <Picker.Item label={t("one")}
+              value={t("one")} />
+            <Picker.Item label={t("two")}
+              value={t("two")} />
+            <Picker.Item label={t("three")}
+              value={t("three")} />
           </Picker>
         </View>
         <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>Survived:</Text>
+          <Text style={styles.filterLabel}>{t("survived")}</Text>
           <Picker
             selectedValue={filterSurvived}
             style={styles.picker}
             onValueChange={setFilterSurvived}
           >
-            <Picker.Item label="All" value="All" />
-            <Picker.Item label="Survived" value="Survived" />
-            <Picker.Item label="Did not survive" value="DidNotSurvive" />
+            <Picker.Item label={t("all")} value={t("all")} />
+            <Picker.Item label={t("survived")} value={t("survived")} />
+            <Picker.Item label={t("didNotSurvive")} value={t("didNotSurvive")} />
           </Picker>
         </View>
         <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>Name:</Text>
+          <Text style={styles.filterLabel}>{t("nameLabel")}</Text>
           <TextInput
             style={styles.textInput}
-            placeholder="Search name"
+            placeholder={t("searchName")}
             value={filterName}
             onChangeText={setFilterName}
           />
         </View>
       </View>
       <View style={styles.sortContainer}>
-        <Text style={styles.sortLabel}>Sort by:</Text>
+        <Text style={styles.sortLabel}>{t("sortBy")}</Text>
         <Picker
           selectedValue={sortBy}
           style={styles.picker}
           onValueChange={(itemValue) => setSortBy(itemValue)}
         >
-          <Picker.Item label="Class" value="Pclass" />
-          <Picker.Item label="Cabin" value="Cabin" />
-          <Picker.Item label="Name" value="Name" />
+          <Picker.Item label={t("class")}
+            value="Pclass" />
+          <Picker.Item label={t("cabin")}
+            value="Cabin" />
+          <Picker.Item label={t("nameSort")}
+            value="Name" />
         </Picker>
       </View>
       <FlatList

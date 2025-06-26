@@ -3,9 +3,11 @@ import { usePeople } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
 import { sharedStyles } from "../styles"
+import { useTranslation } from "react-i18next"
 
 export default function PeopleScreen() {
   const { data: people, isLoading, error, refetch } = usePeople()
+  const { t } = useTranslation()
 
   const handleEmailPress = (email) => {
     Linking.openURL(`mailto:${email}`)
@@ -27,7 +29,7 @@ export default function PeopleScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Contact</Text>
+        <Text style={styles.sectionTitle}>{t("contact")}</Text>
         <TouchableOpacity onPress={() => handleEmailPress(item.email)}>
           <Text style={styles.link}>{item.email}</Text>
         </TouchableOpacity>
@@ -41,7 +43,7 @@ export default function PeopleScreen() {
 
       {item.address && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Address</Text>
+          <Text style={styles.sectionTitle}>{t("address")}</Text>
           <Text style={styles.text}>
             {item.address.suite}, {item.address.street}
           </Text>
@@ -53,7 +55,7 @@ export default function PeopleScreen() {
 
       {item.company && (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Company</Text>
+          <Text style={styles.sectionTitle}>{t("company")}</Text>
           <Text style={styles.companyName}>{item.company.name}</Text>
           <Text style={styles.catchPhrase}>{item.company.catchPhrase}</Text>
         </View>
@@ -62,7 +64,7 @@ export default function PeopleScreen() {
   )
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading people..." />
+    return <LoadingSpinner message={t("loadingPeople")} />
   }
 
   if (error) {

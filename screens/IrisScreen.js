@@ -3,6 +3,7 @@ import { useIris } from "../hooks/useDataQueries"
 import LoadingSpinner from "../components/LoadingSpinner"
 import ErrorMessage from "../components/ErrorMessage"
 import { sharedStyles } from "../styles"
+import { useTranslation } from "react-i18next"
 
 const getVarietyColor = (variety) => {
   switch (variety) {
@@ -19,11 +20,12 @@ const getVarietyColor = (variety) => {
 
 export default function IrisScreen() {
   const { data: iris, isLoading, error, refetch } = useIris()
+  const { t } = useTranslation()
 
   const renderIris = ({ item, index }) => (
     <View style={styles.card}>
       <View style={styles.headerRow}>
-        <Text style={styles.title}>Iris #{index + 1}</Text>
+        <Text style={styles.title}>{t("iris", { index: index + 1 })}</Text>
         <View style={[styles.badge, { backgroundColor: getVarietyColor(item.variety) }]}>
           <Text style={styles.badgeText}>{item.variety}</Text>
         </View>
@@ -31,28 +33,28 @@ export default function IrisScreen() {
 
       <View style={styles.measurements}>
         <View style={styles.measurementGroup}>
-          <Text style={styles.groupTitle}>Sepal</Text>
+          <Text style={styles.groupTitle}>{t("sepal")}</Text>
           <View style={styles.row}>
             <View style={styles.measurement}>
-              <Text style={styles.label}>Length</Text>
+              <Text style={styles.label}>{t("length")}</Text>
               <Text style={styles.infoValueLarge}>{item["sepal.length"]} cm</Text>
             </View>
             <View style={styles.measurement}>
-              <Text style={styles.label}>Width</Text>
+              <Text style={styles.label}>{t("width")}</Text>
               <Text style={styles.infoValueLarge}>{item["sepal.width"]} cm</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.measurementGroup}>
-          <Text style={styles.groupTitle}>Petal</Text>
+          <Text style={styles.groupTitle}>{t("petal")}</Text>
           <View style={styles.row}>
             <View style={styles.measurement}>
-              <Text style={styles.label}>Length</Text>
+              <Text style={styles.label}>{t("length")}</Text>
               <Text style={styles.infoValueLarge}>{item["petal.length"]} cm</Text>
             </View>
             <View style={styles.measurement}>
-              <Text style={styles.label}>Width</Text>
+              <Text style={styles.label}>{t("width")}</Text>
               <Text style={styles.infoValueLarge}>{item["petal.width"]} cm</Text>
             </View>
           </View>
@@ -62,7 +64,7 @@ export default function IrisScreen() {
   )
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading iris data..." />
+    return <LoadingSpinner message={t("loadingIris")} />
   }
 
   if (error) {

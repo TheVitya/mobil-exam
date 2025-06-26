@@ -1,10 +1,12 @@
 import { View, ActivityIndicator, Text, StyleSheet } from "react-native"
+import { useTranslation } from "react-i18next"
 
-export default function LoadingSpinner({ message = "Loading..." }) {
+export default function LoadingSpinner({ message }) {
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#6366f1" />
-      <Text style={styles.text}>{message}</Text>
+      <Text style={styles.text}>{message || t("loading")}</Text>
     </View>
   )
 }

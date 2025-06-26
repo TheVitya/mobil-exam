@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from "react-native"
+import { useTranslation } from "react-i18next"
 import { ROUTES } from "../constants"
 
 const dataCategories = [
@@ -47,12 +48,13 @@ const dataCategories = [
 ]
 
 export default function HomeScreen({ navigation }) {
+  const { t } = useTranslation()
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <Text style={styles.title}>Data Explorer</Text>
-          <Text style={styles.subtitle}>Explore different datasets and visualizations</Text>
+          <Text style={styles.title}>{t("dataExplorer")}</Text>
+          <Text style={styles.subtitle}>{t("exploreDatasets")}</Text>
         </View>
 
         <View style={styles.grid}>

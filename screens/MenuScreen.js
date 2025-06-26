@@ -1,39 +1,31 @@
-import React, { useState } from "react"
+import React from "react"
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native"
-import i18n from "i18n-js"
-
-// Set up translations
-// const translations = {
-//   en: { menu: "Menu", selectLanguage: "Select Language", english: "English", hungarian: "Hungarian" },
-//   hu: { menu: "Menü", selectLanguage: "Válassz nyelvet", english: "Angol", hungarian: "Magyar" },
-// }
-// i18n.translations = translations
-// i18n.fallbacks = true
+import { useTranslation } from "react-i18next"
 
 export default function MenuScreen() {
-  const [language, setLanguage] = useState(i18n.locale)
+  const { t, i18n } = useTranslation()
+  const language = i18n.language
 
   const changeLanguage = (lang) => {
-    i18n.locale = lang
-    setLanguage(lang)
+    i18n.changeLanguage(lang)
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{i18n.t("menu")}</Text>
-      <Text style={styles.label}>{i18n.t("selectLanguage")}</Text>
+      <Text style={styles.title}>{t("menu")}</Text>
+      <Text style={styles.label}>{t("selectLanguage")}</Text>
       <View style={styles.languageRow}>
         <TouchableOpacity
           style={[styles.button, language === "en" && styles.selected]}
           onPress={() => changeLanguage("en")}
         >
-          <Text style={styles.buttonText}>{i18n.t("english")}</Text>
+          <Text style={styles.buttonText}>{t("english")}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, language === "hu" && styles.selected]}
           onPress={() => changeLanguage("hu")}
         >
-          <Text style={styles.buttonText}>{i18n.t("hungarian")}</Text>
+          <Text style={styles.buttonText}>{t("hungarian")}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
