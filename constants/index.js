@@ -11,3 +11,8 @@ export const ROUTES = {
   MENU: "Menu",
   PROFILE: "Profile",
 }
+
+export const MMKV_KEYS = {
+  USER: 'user',
+  LANGUAGE: 'language',
+}

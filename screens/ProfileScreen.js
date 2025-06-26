@@ -1,12 +1,17 @@
 import React from "react"
-import { View, Text, StyleSheet, SafeAreaView } from "react-native"
 import { useTranslation } from "react-i18next"
+import { StyleSheet, Text, View, Button } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import { useUser } from "../providers/UserProvider"
+import { colors } from "../styles"
+import { useNavigation } from "@react-navigation/native"
+import { ROUTES } from "../constants"
 
 export default function ProfileScreen() {
   const { t } = useTranslation()
-  const { user } = useUser()
-  console.log(user)
+  const { user, logout } = useUser()
+  const navigation = useNavigation()
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{t("profile")}</Text>
@@ -15,6 +20,18 @@ export default function ProfileScreen() {
         <Text style={styles.value}>{user.name}</Text>
         <Text style={styles.label}>{t("emailLabel")}</Text>
         <Text style={styles.value}>{user.email}</Text>
+        <Text style={styles.label}>{t("creator")}</Text>
+        <Text style={styles.value}>Nagy Viktor 26224104</Text>
+        <View style={styles.logoutButtonContainer}>
+          <Button
+            title={t("logout")}
+            onPress={() => {
+              logout()
+              navigation.reset({ index: 0, routes: [{ name: ROUTES.LOGIN }] })
+            }}
+            color={colors.primary}
+          />
+        </View>
       </View>
     </SafeAreaView>
   )
@@ -25,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f8fafc",
+    backgroundColor: colors.backgroundColor,
   },
   title: {
     fontSize: 28,
@@ -33,7 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   infoBox: {
-    backgroundColor: "#fff",
+    backgroundColor: colors.cardColor,
     borderRadius: 12,
     padding: 24,
     shadowColor: "#000",
@@ -52,5 +69,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#1f2937",
     fontWeight: "500",
+  },
+  logoutButtonContainer: {
+    marginTop: 24,
+    width: "100%",
+    alignSelf: "center",
   },
 }) 

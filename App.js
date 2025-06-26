@@ -17,11 +17,13 @@ import { colors } from "./styles"
 import { ROUTES } from "./constants"
 import { Ionicons } from '@expo/vector-icons'
 import I18nProvider from "./providers/I18nProvider"
+import { useTranslation } from "react-i18next"
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 function MainTabs() {
+  const { t } = useTranslation()
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -38,15 +40,16 @@ function MainTabs() {
         },
       })}
     >
-      <Tab.Screen name={ROUTES.HOME} component={HomeScreen} options={{ title: "Home" }} />
-      <Tab.Screen name={ROUTES.MENU} component={MenuScreen} options={{ title: "Menu" }} />
-      <Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} options={{ title: "Profile" }} />
+      <Tab.Screen name={ROUTES.HOME} component={HomeScreen} options={{ title: t("home") }} />
+      <Tab.Screen name={ROUTES.MENU} component={MenuScreen} options={{ title: t("menu") }} />
+      <Tab.Screen name={ROUTES.PROFILE} component={ProfileScreen} options={{ title: t("profile") }} />
     </Tab.Navigator>
   )
 }
 
 function MainNavigator() {
   const { user } = useUser()
+  const { t } = useTranslation()
 
   return (
     <Stack.Navigator
@@ -63,12 +66,12 @@ function MainNavigator() {
     >
       {!user && <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} options={{ title: "Login", headerShown: false }} />}
       {user && <Stack.Screen name={ROUTES.MAIN_TABS} component={MainTabs} options={{ headerShown: false }} />}
-      {user && <Stack.Screen name={ROUTES.PASSENGERS} component={PassengersScreen} options={{ title: "Titanic Passengers" }} />}
-      {user && <Stack.Screen name={ROUTES.PEOPLE} component={PeopleScreen} options={{ title: "People Directory" }} />}
-      {user && <Stack.Screen name={ROUTES.WEATHER} component={WeatherScreen} options={{ title: "Weather Data" }} />}
-      {user && <Stack.Screen name={ROUTES.IRIS} component={IrisScreen} options={{ title: "Iris Dataset" }} />}
-      {user && <Stack.Screen name={ROUTES.HOUSE_PRICING} component={HousePricingScreen} options={{ title: "House Pricing" }} />}
-      {user && <Stack.Screen name={ROUTES.COUNTRIES} component={CountriesScreen} options={{ title: "Countries" }} />}
+      {user && <Stack.Screen name={ROUTES.PASSENGERS} component={PassengersScreen} options={{ title: t("titanicPassengers") }} />}
+      {user && <Stack.Screen name={ROUTES.PEOPLE} component={PeopleScreen} options={{ title: t("peopleDirectory") }} />}
+      {user && <Stack.Screen name={ROUTES.WEATHER} component={WeatherScreen} options={{ title: t("weatherData") }} />}
+      {user && <Stack.Screen name={ROUTES.IRIS} component={IrisScreen} options={{ title: t("irisDataset") }} />}
+      {user && <Stack.Screen name={ROUTES.HOUSE_PRICING} component={HousePricingScreen} options={{ title: t("housePricing") }} />}
+      {user && <Stack.Screen name={ROUTES.COUNTRIES} component={CountriesScreen} options={{ title: t("countries") }} />}
     </Stack.Navigator>
   )
 }

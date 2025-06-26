@@ -1,13 +1,15 @@
 import React from "react"
 import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from "react-native"
 import { useTranslation } from "react-i18next"
+import { useUser } from "../providers/UserProvider"
 
 export default function MenuScreen() {
   const { t, i18n } = useTranslation()
-  const language = i18n.language
+  const { language, setPreferredLanguage } = useUser()
 
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang)
+    setPreferredLanguage(lang)
   }
 
   return (

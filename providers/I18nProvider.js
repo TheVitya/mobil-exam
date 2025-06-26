@@ -42,6 +42,8 @@ const resources = {
       // ProfileScreen
       name: "Name:",
       emailLabel: "Email:",
+      creator: "Creator:",
+      logout: "Logout",
 
       // CountriesScreen
       capital: "Capital:",
@@ -158,6 +160,8 @@ const resources = {
       // ProfileScreen
       name: "Név:",
       emailLabel: "Email:",
+      creator: "Készítő:",
+      logout: "Kijelentkezés",
 
       // CountriesScreen
       capital: "Főváros:",
