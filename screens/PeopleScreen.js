@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { FlatList, Linking, StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from "react-native"
-import ErrorMessage from "../components/ErrorMessage"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { Card, DataRow, ErrorMessage, LoadingSpinner } from "../components"
 import { usePeople } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 
 export default function PeopleScreen() {
   const { data: people, isLoading, error, refetch } = usePeople()
@@ -25,6 +24,15 @@ export default function PeopleScreen() {
       color: colors.textColorSecondary,
       fontStyle: "italic",
     },
+    contactSection: {
+      marginBottom: SPACING_UNIT * 2,
+    },
+    addressSection: {
+      marginBottom: SPACING_UNIT * 2,
+    },
+    companySection: {
+      marginBottom: SPACING_UNIT * 2,
+    },
   })
 
   const handleEmailPress = (email) => {
@@ -40,13 +48,13 @@ export default function PeopleScreen() {
   }
 
   const renderPerson = ({ item }) => (
-    <View style={styles.card}>
+    <Card>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{item.name}</Text>
         <Text style={styles.subtitle}>@{item.username}</Text>
       </View>
 
-      <View style={styles.section}>
+      <View style={styles.contactSection}>
         <Text style={styles.sectionTitle}>{t("contact")}</Text>
         <TouchableOpacity onPress={() => handleEmailPress(item.email)}>
           <Text style={styles.link}>{item.email}</Text>
@@ -60,7 +68,7 @@ export default function PeopleScreen() {
       </View>
 
       {item.address && (
-        <View style={styles.section}>
+        <View style={styles.addressSection}>
           <Text style={styles.sectionTitle}>{t("address")}</Text>
           <Text style={styles.text}>
             {item.address.suite}, {item.address.street}
@@ -72,13 +80,13 @@ export default function PeopleScreen() {
       )}
 
       {item.company && (
-        <View style={styles.section}>
+        <View style={styles.companySection}>
           <Text style={styles.sectionTitle}>{t("company")}</Text>
           <Text style={styles.companyName}>{item.company.name}</Text>
           <Text style={styles.catchPhrase}>{item.company.catchPhrase}</Text>
         </View>
       )}
-    </View>
+    </Card>
   )
 
   if (isLoading) {

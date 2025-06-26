@@ -2,8 +2,9 @@ import { useTranslation } from "react-i18next"
 import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { ROUTES } from "../constants"
 import { useTheme } from "../providers/ThemeProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { Card, ScreenHeader } from "../components"
 
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation()
@@ -13,22 +14,7 @@ export default function HomeScreen({ navigation }) {
   const styles = StyleSheet.create({
     ...sharedStyles,
     scrollContent: {
-      padding: 20,
-    },
-    header: {
-      marginBottom: 30,
-      alignItems: "center",
-    },
-    title: {
-      fontSize: 32,
-      fontWeight: "bold",
-      color: colors.textColor,
-      marginBottom: 8,
-    },
-    subtitle: {
-      fontSize: 16,
-      color: colors.textColorSecondary,
-      textAlign: "center",
+      padding: SPACING_UNIT * 2.5,
     },
     cardContent: {
       flexDirection: "row",
@@ -36,7 +22,7 @@ export default function HomeScreen({ navigation }) {
     },
     icon: {
       fontSize: 32,
-      marginRight: 16,
+      marginRight: SPACING_UNIT * 2,
     },
     cardText: {
       flex: 1,
@@ -67,7 +53,7 @@ export default function HomeScreen({ navigation }) {
       description: t("peopleDirectoryDesc"),
       screen: ROUTES.PEOPLE,
       icon: "👥",
-      color: colors.primary, // fallback to primary for all, or define more in your theme
+      color: colors.primary,
     },
     {
       title: t("weatherData"),
@@ -102,26 +88,27 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{t("dataExplorer")}</Text>
-          <Text style={styles.subtitle}>{t("exploreDatasets")}</Text>
-        </View>
+        <ScreenHeader
+          title={t("dataExplorer")}
+          subtitle={t("exploreDatasets")}
+        />
 
         <View style={styles.gridColumn}>
           {dataCategories.map((category, index) => (
             <TouchableOpacity
               key={index}
-              style={[styles.card, { borderLeftColor: category.color }]}
               onPress={() => navigation.navigate(category.screen)}
               activeOpacity={0.7}
             >
-              <View style={styles.cardContent}>
-                <Text style={styles.icon}>{category.icon}</Text>
-                <View style={styles.cardText}>
-                  <Text style={styles.cardTitle}>{category.title}</Text>
-                  <Text style={styles.cardDescription}>{category.description}</Text>
+              <Card style={{ borderLeftColor: category.color, borderLeftWidth: 4 }}>
+                <View style={styles.cardContent}>
+                  <Text style={styles.icon}>{category.icon}</Text>
+                  <View style={styles.cardText}>
+                    <Text style={styles.cardTitle}>{category.title}</Text>
+                    <Text style={styles.cardDescription}>{category.description}</Text>
+                  </View>
                 </View>
-              </View>
+              </Card>
             </TouchableOpacity>
           ))}
         </View>

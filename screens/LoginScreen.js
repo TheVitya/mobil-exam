@@ -1,14 +1,13 @@
 import { useNavigation } from "@react-navigation/native"
 import React, { useState } from "react"
-import { Alert, Button, StyleSheet, Text, TextInput } from "react-native"
+import { Alert, StyleSheet, Text, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
-import ErrorMessage from "../components/ErrorMessage"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { Button, Input, ScreenHeader, ErrorMessage, LoadingSpinner } from "../components"
 import { ROUTES } from "../constants"
 import { usePeople } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { useUser } from "../providers/UserProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("")
@@ -23,33 +22,11 @@ export default function LoginScreen() {
     container: {
       flex: 1,
       justifyContent: "center",
-      padding: 24,
+      padding: SPACING_UNIT * 3,
       backgroundColor: colors.backgroundColor,
     },
-    title: {
-      fontSize: 32,
-      fontWeight: "bold",
-      marginBottom: 24,
-      color: colors.primary,
-      textAlign: "center",
-    },
-    label: {
-      fontSize: 16,
-      marginBottom: 8,
-      color: colors.textColor,
-    },
-    input: {
-      borderWidth: 1,
-      borderColor: colors.textColorSecondary,
-      borderRadius: 8,
-      padding: 12,
-      marginBottom: 16,
-      fontSize: 16,
-      backgroundColor: colors.cardColor,
-      color: colors.textColor,
-    },
     hint: {
-      marginTop: 16,
+      marginTop: SPACING_UNIT * 2,
       color: colors.textColorSecondary,
       textAlign: "center",
     },
@@ -76,18 +53,26 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <Text style={styles.label}>Email</Text>
-      <TextInput
-        style={styles.input}
+      <ScreenHeader 
+        title="Login" 
+        titleStyle={{ color: colors.primary }}
+      />
+      
+      <Input
+        label="Email"
         value={email}
         onChangeText={setEmail}
         placeholder="Enter your email"
         autoCapitalize="none"
         keyboardType="email-address"
-        placeholderTextColor={colors.textColorSecondary}
       />
-      <Button title="Login" onPress={handleLogin} color={colors.primary} />
+      
+      <Button 
+        title="Login" 
+        onPress={handleLogin}
+        disabled={!email.trim()}
+      />
+      
       <Text style={styles.hint}>Use an email from the json1.txt file.</Text>
     </SafeAreaView>
   )

@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native"
-import ErrorMessage from "../components/ErrorMessage"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { Card, DataRow, Badge, ErrorMessage, LoadingSpinner } from "../components"
 import { useWeather } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 
 export default function WeatherScreen() {
   const { data: weather, isLoading, error, refetch } = useWeather()
@@ -35,53 +34,52 @@ export default function WeatherScreen() {
     },
     footer: {
       alignItems: "center",
+      marginTop: SPACING_UNIT,
     },
   })
 
   const renderWeatherItem = ({ item, index }) => (
-    <View style={styles.card}>
+    <Card>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{t("day", { index: index + 1 })}</Text>
         <View style={styles.tempRange}>
-          <Text style={styles.minTemp}>{item.MinTemp}\u00b0</Text>
+          <Text style={styles.minTemp}>{item.MinTemp}°</Text>
           <Text style={styles.tempSeparator}>/</Text>
-          <Text style={styles.maxTemp}>{item.MaxTemp}\u00b0</Text>
+          <Text style={styles.maxTemp}>{item.MaxTemp}°</Text>
         </View>
       </View>
+      
       <View style={styles.grid}>
         <View style={styles.gridItem}>
-          <Text style={styles.label}>{t("rainfall")}</Text>
-          <Text style={styles.value}>{item.Rainfall}mm</Text>
+          <DataRow label={t("rainfall")} value={`${item.Rainfall}mm`} />
         </View>
         <View style={styles.gridItem}>
-          <Text style={styles.label}>{t("sunshine")}</Text>
-          <Text style={styles.value}>{item.Sunshine}h</Text>
+          <DataRow label={t("sunshine")} value={`${item.Sunshine}h`} />
         </View>
         <View style={styles.gridItem}>
-          <Text style={styles.label}>{t("windGust")}</Text>
-          <Text style={styles.value}>
-            {item.WindGustSpeed}km/h {item.WindGustDir}
-          </Text>
+          <DataRow 
+            label={t("windGust")} 
+            value={`${item.WindGustSpeed}km/h ${item.WindGustDir}`} 
+          />
         </View>
         <View style={styles.gridItem}>
-          <Text style={styles.label}>{t("humidity9am")}</Text>
-          <Text style={styles.value}>{item.Humidity9am}%</Text>
+          <DataRow label={t("humidity9am")} value={`${item.Humidity9am}%`} />
         </View>
         <View style={styles.gridItem}>
-          <Text style={styles.label}>{t("humidity3pm")}</Text>
-          <Text style={styles.value}>{item.Humidity3pm}%</Text>
+          <DataRow label={t("humidity3pm")} value={`${item.Humidity3pm}%`} />
         </View>
         <View style={styles.gridItem}>
-          <Text style={styles.label}>{t("pressure")}</Text>
-          <Text style={styles.value}>{item.Pressure9am}hPa</Text>
+          <DataRow label={t("pressure")} value={`${item.Pressure9am}hPa`} />
         </View>
       </View>
+      
       <View style={styles.footer}>
-        <View style={[styles.badge, { backgroundColor: item.RainTomorrow === "Yes" ? colors.primary : colors.textColorSecondary }]}>
-          <Text style={styles.badgeText}>{t("rainTomorrow", { value: item.RainTomorrow })}</Text>
-        </View>
+        <Badge 
+          text={t("rainTomorrow", { value: item.RainTomorrow })}
+          color={item.RainTomorrow === "Yes" ? colors.primary : colors.textColorSecondary}
+        />
       </View>
-    </View>
+    </Card>
   )
 
   if (isLoading) {

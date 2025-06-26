@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { FlatList, StyleSheet, Text, View, SafeAreaView } from "react-native"
-import ErrorMessage from "../components/ErrorMessage"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { Card, Badge, DataRow, ErrorMessage, LoadingSpinner } from "../components"
 import { useHousePricing } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 
 export default function HousePricingScreen() {
   const { data: houses, isLoading, error, refetch } = useHousePricing()
@@ -17,10 +16,10 @@ export default function HousePricingScreen() {
     basicInfo: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginBottom: 16,
+      marginBottom: SPACING_UNIT * 2,
       backgroundColor: colors.backgroundColor,
-      borderRadius: 8,
-      padding: 12,
+      borderRadius: SPACING_UNIT,
+      padding: SPACING_UNIT * 1.5,
     },
     infoItem: {
       alignItems: "center",
@@ -30,18 +29,18 @@ export default function HousePricingScreen() {
       color: colors.textColorSecondary,
     },
     features: {
-      marginTop: 8,
+      marginTop: SPACING_UNIT,
     },
     featuresTitle: {
       fontSize: 16,
       fontWeight: "600",
       color: colors.textColor,
-      marginBottom: 8,
+      marginBottom: SPACING_UNIT,
     },
     featureGrid: {
       flexDirection: "row",
       flexWrap: "wrap",
-      marginBottom: 8,
+      marginBottom: SPACING_UNIT,
     },
     feature: {
       width: "50%",
@@ -59,18 +58,15 @@ export default function HousePricingScreen() {
   }
 
   const renderHouse = ({ item, index }) => (
-    <View style={styles.card}>
+    <Card>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{formatPrice(item.price)}</Text>
-        <View
-          style={[
-            styles.badge,
-            { backgroundColor: item.furnishingstatus === "furnished" ? colors.primary : colors.textColorSecondary },
-          ]}
-        >
-          <Text style={styles.badgeText}>{item.furnishingstatus}</Text>
-        </View>
+        <Badge 
+          text={item.furnishingstatus}
+          color={item.furnishingstatus === "furnished" ? colors.primary : colors.textColorSecondary}
+        />
       </View>
+      
       <View style={styles.basicInfo}>
         <View style={styles.infoItem}>
           <Text style={styles.infoValueLarge}>{item.bedrooms}</Text>
@@ -89,43 +85,44 @@ export default function HousePricingScreen() {
           <Text style={styles.infoLabel}>{t("sqFt")}</Text>
         </View>
       </View>
+      
       <View style={styles.features}>
         <Text style={styles.featuresTitle}>{t("features")}</Text>
         <View style={styles.featureGrid}>
           <View style={styles.feature}>
             <Text style={[styles.text, { color: item.mainroad === "yes" ? colors.primary : colors.textColorSecondary }]}>
-              {item.mainroad === "yes" ? "\u2713" : "\u2717"} {t("mainRoad")}
+              {item.mainroad === "yes" ? "✓" : "✗"} {t("mainRoad")}
             </Text>
           </View>
           <View style={styles.feature}>
             <Text style={[styles.text, { color: item.guestroom === "yes" ? colors.primary : colors.textColorSecondary }]}>
-              {item.guestroom === "yes" ? "\u2713" : "\u2717"} {t("guestRoom")}
+              {item.guestroom === "yes" ? "✓" : "✗"} {t("guestRoom")}
             </Text>
           </View>
           <View style={styles.feature}>
             <Text style={[styles.text, { color: item.basement === "yes" ? colors.primary : colors.textColorSecondary }]}>
-              {item.basement === "yes" ? "\u2713" : "\u2717"} {t("basement")}
+              {item.basement === "yes" ? "✓" : "✗"} {t("basement")}
             </Text>
           </View>
           <View style={styles.feature}>
             <Text style={[styles.text, { color: item.airconditioning === "yes" ? colors.primary : colors.textColorSecondary }]}>
-              {item.airconditioning === "yes" ? "\u2713" : "\u2717"} {t("ac")}
+              {item.airconditioning === "yes" ? "✓" : "✗"} {t("ac")}
             </Text>
           </View>
           <View style={styles.feature}>
             <Text style={[styles.text, { color: item.hotwaterheating === "yes" ? colors.primary : colors.textColorSecondary }]}>
-              {item.hotwaterheating === "yes" ? "\u2713" : "\u2717"} {t("hotWater")}
+              {item.hotwaterheating === "yes" ? "✓" : "✗"} {t("hotWater")}
             </Text>
           </View>
           <View style={styles.feature}>
             <Text style={[styles.text, { color: item.prefarea === "yes" ? colors.primary : colors.textColorSecondary }]}>
-              {item.prefarea === "yes" ? "\u2713" : "\u2717"} {t("preferredArea")}
+              {item.prefarea === "yes" ? "✓" : "✗"} {t("preferredArea")}
             </Text>
           </View>
         </View>
         <Text style={styles.text}>{t("parking", { count: item.parking })}</Text>
       </View>
-    </View>
+    </Card>
   )
 
   if (isLoading) {

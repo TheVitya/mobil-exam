@@ -1,10 +1,9 @@
 import { useTranslation } from "react-i18next"
 import { FlatList, StyleSheet, Text, View, SafeAreaView } from "react-native"
-import ErrorMessage from "../components/ErrorMessage"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { Card, Badge, DataRow, ErrorMessage, LoadingSpinner } from "../components"
 import { useIris } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 
 const getVarietyColor = (variety, colors) => {
   switch (variety) {
@@ -27,33 +26,19 @@ export default function IrisScreen() {
   const sharedStyles = createSharedStyles(colors)
   const styles = StyleSheet.create({
     ...sharedStyles,
-    card: {
-      backgroundColor: colors.cardColor,
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 16,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.1,
-      shadowRadius: 3.84,
-      elevation: 5,
-    },
     measurements: {
-      gap: 16,
+      gap: SPACING_UNIT * 2,
     },
     measurementGroup: {
       backgroundColor: colors.backgroundColor,
-      borderRadius: 8,
-      padding: 12,
+      borderRadius: SPACING_UNIT,
+      padding: SPACING_UNIT * 1.5,
     },
     groupTitle: {
       fontSize: 14,
       fontWeight: "600",
       color: colors.textColor,
-      marginBottom: 8,
+      marginBottom: SPACING_UNIT,
     },
     measurement: {
       flex: 1,
@@ -61,42 +46,41 @@ export default function IrisScreen() {
   })
 
   const renderIris = ({ item, index }) => (
-    <View style={styles.card}>
+    <Card>
       <View style={styles.headerRow}>
         <Text style={styles.title}>{t("iris", { index: index + 1 })}</Text>
-        <View style={[styles.badge, { backgroundColor: getVarietyColor(item.variety, colors) }]}>
-          <Text style={styles.badgeText}>{item.variety}</Text>
-        </View>
+        <Badge 
+          text={item.variety}
+          color={getVarietyColor(item.variety, colors)}
+        />
       </View>
+      
       <View style={styles.measurements}>
         <View style={styles.measurementGroup}>
           <Text style={styles.groupTitle}>{t("sepal")}</Text>
           <View style={styles.row}>
             <View style={styles.measurement}>
-              <Text style={styles.label}>{t("length")}</Text>
-              <Text style={styles.infoValueLarge}>{item["sepal.length"]} cm</Text>
+              <DataRow label={t("length")} value={`${item["sepal.length"]} cm`} />
             </View>
             <View style={styles.measurement}>
-              <Text style={styles.label}>{t("width")}</Text>
-              <Text style={styles.infoValueLarge}>{item["sepal.width"]} cm</Text>
+              <DataRow label={t("width")} value={`${item["sepal.width"]} cm`} />
             </View>
           </View>
         </View>
+        
         <View style={styles.measurementGroup}>
           <Text style={styles.groupTitle}>{t("petal")}</Text>
           <View style={styles.row}>
             <View style={styles.measurement}>
-              <Text style={styles.label}>{t("length")}</Text>
-              <Text style={styles.infoValueLarge}>{item["petal.length"]} cm</Text>
+              <DataRow label={t("length")} value={`${item["petal.length"]} cm`} />
             </View>
             <View style={styles.measurement}>
-              <Text style={styles.label}>{t("width")}</Text>
-              <Text style={styles.infoValueLarge}>{item["petal.width"]} cm</Text>
+              <DataRow label={t("width")} value={`${item["petal.width"]} cm`} />
             </View>
           </View>
         </View>
       </View>
-    </View>
+    </Card>
   )
 
   if (isLoading) {

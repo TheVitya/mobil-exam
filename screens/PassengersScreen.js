@@ -1,9 +1,7 @@
-import { Picker } from '@react-native-picker/picker'
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { FlatList, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
-import ErrorMessage from "../components/ErrorMessage"
-import LoadingSpinner from "../components/LoadingSpinner"
+import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native"
+import { Card, Badge, DataRow, FilterPicker, Input, ErrorMessage, LoadingSpinner } from "../components"
 import { usePassengers } from '../hooks/useDataQueries'
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles, SPACING_UNIT } from "../styles"
@@ -29,29 +27,9 @@ export default function PassengersScreen() {
       backgroundColor: colors.backgroundColor,
       zIndex: 2,
     },
-    filterItem: {
-      flex: 1,
-      width: "50%",
-      marginRight: SPACING_UNIT,
-    },
-    filterLabel: {
-      fontSize: 14,
-      fontWeight: '500',
-      marginBottom: 2,
-      color: colors.textColor,
-    },
     list: {
       padding: SPACING_UNIT * 2.5,
       paddingTop: 0,
-    },
-    textInput: {
-      height: 40,
-      borderColor: colors.textColorSecondary,
-      borderWidth: 1,
-      borderRadius: SPACING_UNIT,
-      paddingHorizontal: SPACING_UNIT,
-      backgroundColor: colors.cardColor,
-      color: colors.textColor,
     },
     sortContainer: {
       flexDirection: 'row',
@@ -65,9 +43,6 @@ export default function PassengersScreen() {
       fontWeight: '500',
       marginRight: SPACING_UNIT,
       color: colors.textColor,
-    },
-    details: {
-      gap: SPACING_UNIT,
     },
     searchContainer: {
       paddingHorizontal: SPACING_UNIT * 2,
@@ -95,36 +70,22 @@ export default function PassengersScreen() {
   }, [filteredPassengers, sortBy])
 
   const renderPassenger = ({ item }) => (
-    <View style={styles.card}>
+    <Card>
       <View style={styles.headerRow}>
         <Text style={styles.name}>{item.Name}</Text>
-        <View style={[styles.badge, { backgroundColor: item.Survived ? colors.primary : colors.textColorSecondary }]}>
-          <Text style={styles.badgeText}>{item.Survived ? t("survived") : t("didNotSurvive")}</Text>
-        </View>
+        <Badge 
+          text={item.Survived ? t("survived") : t("didNotSurvive")}
+          color={item.Survived ? colors.primary : colors.textColorSecondary}
+        />
       </View>
       <View style={styles.details}>
-        <View style={styles.row}>
-          <Text style={styles.label}>{t("class")}</Text>
-          <Text style={styles.value}>{item.Pclass}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{t("sex")}</Text>
-          <Text style={styles.value}>{t(item.Sex)}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{t("age")}</Text>
-          <Text style={styles.value}>{item.Age || t("unknown")}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{t("fare")}</Text>
-          <Text style={styles.value}>${item.Fare ? item.Fare.toFixed(2) : t("na")}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>{t("embarked")}</Text>
-          <Text style={styles.value}>{item.Embarked || t("unknown")}</Text>
-        </View>
+        <DataRow label={t("class")} value={item.Pclass} />
+        <DataRow label={t("sex")} value={t(item.Sex)} />
+        <DataRow label={t("age")} value={item.Age || t("unknown")} />
+        <DataRow label={t("fare")} value={`$${item.Fare ? item.Fare.toFixed(2) : t("na")}`} />
+        <DataRow label={t("embarked")} value={item.Embarked || t("unknown")} />
       </View>
-    </View>
+    </Card>
   )
 
   if (isLoading) {
@@ -137,50 +98,37 @@ export default function PassengersScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-
       <View style={styles.filterContainer}>
-        <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>{t("class")}</Text>
-          <Picker
-            selectedValue={filterPclass}
-            onValueChange={setFilterPclass}
-            style={{ color: colors.textColor }}
-            dropdownIconColor={colors.textColor}
-          >
-            <Picker.Item  label={t("all")}
-              value="all" />
-            <Picker.Item label={t("one")}
-              value="1" />
-            <Picker.Item label={t("two")}
-              value="2" />
-            <Picker.Item label={t("three")}
-              value="3" />
-          </Picker>
-        </View>
+        <FilterPicker
+          label={t("class")}
+          selectedValue={filterPclass}
+          onValueChange={setFilterPclass}
+          items={[
+            { label: t("all"), value: "all" },
+            { label: t("one"), value: "1" },
+            { label: t("two"), value: "2" },
+            { label: t("three"), value: "3" },
+          ]}
+        />
 
-        <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>{t("survived")}:</Text>
-          <Picker
-            selectedValue={filterSurvived}
-            onValueChange={setFilterSurvived}
-            style={{ color: colors.textColor }}
-            dropdownIconColor={colors.textColor}
-          >
-            <Picker.Item label={t("all")} value="all" />
-            <Picker.Item label={t("survived")} value="survived" />
-            <Picker.Item label={t("didNotSurvive")} value="notSurvived" />
-          </Picker>
-        </View>
+        <FilterPicker
+          label={t("survived")}
+          selectedValue={filterSurvived}
+          onValueChange={setFilterSurvived}
+          items={[
+            { label: t("all"), value: "all" },
+            { label: t("survived"), value: "survived" },
+            { label: t("didNotSurvive"), value: "notSurvived" },
+          ]}
+        />
       </View>
 
       <View style={styles.searchContainer}>
-        <Text style={styles.filterLabel}>{t("nameLabel")}</Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder={t("searchName")}
+        <Input
+          label={t("nameLabel")}
           value={filterName}
           onChangeText={setFilterName}
-          placeholderTextColor={colors.textColor}
+          placeholder={t("searchName")}
         />
       </View>
 
