@@ -70,10 +70,10 @@ export default function PeopleScreen() {
       {item.address && (
         <View style={styles.addressSection}>
           <Text style={styles.sectionTitle}>{t("address")}</Text>
-          <Text style={styles.text}>
+          <Text style={styles.smallText}>
             {item.address.suite}, {item.address.street}
           </Text>
-          <Text style={styles.text}>
+          <Text style={styles.smallText}>
             {item.address.city}, {item.address.zipcode}
           </Text>
         </View>

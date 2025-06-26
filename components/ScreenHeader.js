@@ -43,7 +43,7 @@ export default function ScreenHeader({
   return (
     <View style={[styles.header, style]} {...props}>
       {icon && <Text style={[styles.icon, iconStyle]}>{icon}</Text>}
-      <Text style={[styles.title, titleStyle]}>{title}</Text>
+      {title && <Text style={[styles.title, titleStyle]}>{title}</Text>}
       {subtitle && <Text style={[styles.subtitle, subtitleStyle]}>{subtitle}</Text>}
     </View>
   )

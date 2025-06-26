@@ -10,6 +10,7 @@ export const ROUTES = {
   MAIN_TABS: "MainTabs",
   MENU: "Menu",
   PROFILE: "Profile",
+  ABOUT_SCHOOL: "AboutSchool",
 }
 
 export const MMKV_KEYS = {

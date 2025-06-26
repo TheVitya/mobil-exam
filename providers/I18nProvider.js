@@ -22,6 +22,8 @@ const resources = {
       light: "Light",
       dark: "Dark",
       system: "System",
+      navigation: "Navigation",
+      aboutOurSchool: "About Our School",
 
       // HomeScreen
       titanicPassengers: "Titanic Passengers",
@@ -36,6 +38,24 @@ const resources = {
       housePricingDesc: "Real estate property information",
       countries: "Countries",
       countriesDesc: "Global country information and details",
+
+      // AboutSchoolScreen
+      schoolDescription: "Welcome to our school! We are committed to providing quality education and fostering a supportive learning environment. Our facilities include modern classrooms, well-equipped laboratories, a comprehensive library, and excellent sports facilities. We believe in nurturing both academic excellence and personal growth.",
+      schoolGallery: "Take a tour of our school facilities:",
+      modernFacilities: "Modern facilities",
+      modernFacilitiesDesc: "Our school has modern facilities, including a computer lab, science lab.",
+      learningEnvironment: "Learning environment",
+      learningEnvironmentDesc: "Our school has a learning environment that is conducive to learning.",
+      givingBack: "Giving back to the community",
+      givingBackDesc: "Our school is committed to giving back to the community.",
+      supportingCommunity: "Supporting the community",
+      supportingCommunityDesc: "Our school is committed to supporting the community.",
+      modernAmphitheater: "Modern amphitheater",
+      modernAmphitheaterDesc: "Our school has a modern amphitheater for events and performances.",
+      studentCollaboration: "Student Collaboration",
+      studentCollaborationDesc: "Students working together on projects",
+      hackathons: "Hackathons",
+      hackathonsDesc: "Hackathons are a great way to learn new skills and build your portfolio",
 
       // LoginScreen
       login: "Login",
@@ -76,6 +96,9 @@ const resources = {
       preferredArea: "Preferred Area",
       parking: "Parking: {{count}} spaces",
       loadingHouse: "Loading house data...",
+      furnished: "Furnished",
+      unfurnished: "Unfurnished",
+      "semi-furnished": "Semi-Furnished",
 
       // IrisScreen
       iris: "Iris #{{index}}",
@@ -146,6 +169,8 @@ const resources = {
       light: "Világos",
       dark: "Sötét",
       system: "Rendszer",
+      navigation: "Navigáció",
+      aboutOurSchool: "Az Iskolánkról",
 
       // HomeScreen
       titanicPassengers: "Titanic utasok",
@@ -160,6 +185,24 @@ const resources = {
       housePricingDesc: "Ingatlan információk",
       countries: "Országok",
       countriesDesc: "Globális ország információk és részletek",
+
+      // AboutSchoolScreen
+      schoolDescription: "Üdvözöljük iskolánkban! Elkötelezettek vagyunk a minőségi oktatás biztosítása és támogató tanulási környezet kialakítása mellett. Létesítményeink között szerepelnek modern tantermek, jól felszerelt laboratóriumok, átfogó könyvtár és kiváló sportlétesítmények. Hiszünk abban, hogy mind az akadémiai kiválóságot, mind a személyes fejlődést támogatni kell.",
+      schoolGallery: "Tegyen egy túrát iskolai létesítményeinkben:",
+      modernFacilities: "Modern létesítmények",
+      modernFacilitiesDesc: "Iskolánk modern létesítményekkel rendelkezik, beleértve számítógépes laboratóriumot, tudományos laboratóriumot.",
+      learningEnvironment: "Tanulási környezet",
+      learningEnvironmentDesc: "Iskolánk tanulásra ösztönző környezettel rendelkezik.",
+      givingBack: "Közösség támogatása",
+      givingBackDesc: "Iskolánk elkötelezett a közösség támogatása mellett.",
+      supportingCommunity: "Közösség támogatása",
+      supportingCommunityDesc: "Iskolánk elkötelezett a közösség támogatása mellett.",
+      modernAmphitheater: "Modern amfiteáter",
+      modernAmphitheaterDesc: "Iskolánk modern amfiteáterrel rendelkezik eseményekhez és előadásokhoz.",
+      studentCollaboration: "Diák együttműködés",
+      studentCollaborationDesc: "Diákok együtt dolgoznak projekteken",
+      hackathons: "Hackathonok",
+      hackathonsDesc: "A hackathonok nagyszerű módja új készségek elsajátítására és portfólió építésére",
 
       // LoginScreen
       login: "Bejelentkezés",
@@ -200,6 +243,9 @@ const resources = {
       preferredArea: "Kedvelt környék",
       parking: "Parkoló: {{count}} hely",
       loadingHouse: "Ingatlanadatok betöltése...",
+      furnished: "Felszerelt",
+      unfurnished: "Nem felszerelt",
+      "semi-furnished": "Félig felszerelt",
 
       // IrisScreen
       iris: "Iris #{{index}}",

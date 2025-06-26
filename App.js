@@ -13,11 +13,13 @@ import WeatherScreen from "./screens/WeatherScreen"
 import LoginScreen from "./screens/LoginScreen"
 import MenuScreen from "./screens/MenuScreen"
 import ProfileScreen from "./screens/ProfileScreen"
+import AboutSchoolScreen from "./screens/AboutSchoolScreen"
 import { ROUTES } from "./constants"
 import { Ionicons } from '@expo/vector-icons'
 import I18nProvider from "./providers/I18nProvider"
 import { useTranslation } from "react-i18next"
 import { ThemeProvider, useTheme } from './providers/ThemeProvider'
+import { StatusBar } from "expo-status-bar"
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -51,30 +53,34 @@ function MainTabs() {
 function MainNavigator() {
   const { user } = useUser()
   const { t } = useTranslation()
-  const { colors } = useTheme()
+  const { colors, theme} = useTheme()
 
   return (
-    <Stack.Navigator
-      initialRouteName={user ? ROUTES.MAIN_TABS : ROUTES.LOGIN}
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: colors.primary,
-        },
-        headerTintColor: colors.textColorTertiary,
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
-      {!user && <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} options={{ title: "Login", headerShown: false }} />}
-      {user && <Stack.Screen name={ROUTES.MAIN_TABS} component={MainTabs} options={{ headerShown: false }} />}
-      {user && <Stack.Screen name={ROUTES.PASSENGERS} component={PassengersScreen} options={{ title: t("titanicPassengers") }} />}
-      {user && <Stack.Screen name={ROUTES.PEOPLE} component={PeopleScreen} options={{ title: t("peopleDirectory") }} />}
-      {user && <Stack.Screen name={ROUTES.WEATHER} component={WeatherScreen} options={{ title: t("weatherData") }} />}
-      {user && <Stack.Screen name={ROUTES.IRIS} component={IrisScreen} options={{ title: t("irisDataset") }} />}
-      {user && <Stack.Screen name={ROUTES.HOUSE_PRICING} component={HousePricingScreen} options={{ title: t("housePricing") }} />}
-      {user && <Stack.Screen name={ROUTES.COUNTRIES} component={CountriesScreen} options={{ title: t("countries") }} />}
-    </Stack.Navigator>
+    <>
+      <StatusBar style={theme === "dark" ? "light" : "dark"} />
+      <Stack.Navigator
+        initialRouteName={user ? ROUTES.MAIN_TABS : ROUTES.LOGIN}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: colors.primary,
+          },
+          headerTintColor: colors.textColorTertiary,
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        {!user && <Stack.Screen name={ROUTES.LOGIN} component={LoginScreen} options={{ title: "Login", headerShown: false }} />}
+        {user && <Stack.Screen name={ROUTES.MAIN_TABS} component={MainTabs} options={{ headerShown: false }} />}
+        {user && <Stack.Screen name={ROUTES.PASSENGERS} component={PassengersScreen} options={{ title: t("titanicPassengers") }} />}
+        {user && <Stack.Screen name={ROUTES.PEOPLE} component={PeopleScreen} options={{ title: t("peopleDirectory") }} />}
+        {user && <Stack.Screen name={ROUTES.WEATHER} component={WeatherScreen} options={{ title: t("weatherData") }} />}
+        {user && <Stack.Screen name={ROUTES.IRIS} component={IrisScreen} options={{ title: t("irisDataset") }} />}
+        {user && <Stack.Screen name={ROUTES.HOUSE_PRICING} component={HousePricingScreen} options={{ title: t("housePricing") }} />}
+        {user && <Stack.Screen name={ROUTES.COUNTRIES} component={CountriesScreen} options={{ title: t("countries") }} />}
+        {user && <Stack.Screen name={ROUTES.ABOUT_SCHOOL} component={AboutSchoolScreen} options={{ title: t("aboutOurSchool") || "About Our School" }} />}
+      </Stack.Navigator>
+    </>
   )
 }
 

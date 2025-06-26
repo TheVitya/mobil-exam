@@ -62,7 +62,7 @@ export default function HousePricingScreen() {
       <View style={styles.headerRow}>
         <Text style={styles.title}>{formatPrice(item.price)}</Text>
         <Badge 
-          text={item.furnishingstatus}
+          text={t(item.furnishingstatus.toLowerCase())}
           color={item.furnishingstatus === "furnished" ? colors.primary : colors.textColorSecondary}
         />
       </View>
@@ -120,7 +120,7 @@ export default function HousePricingScreen() {
             </Text>
           </View>
         </View>
-        <Text style={styles.text}>{t("parking", { count: item.parking })}</Text>
+        <Text style={styles.smallText}>{t("parking", { count: item.parking })}</Text>
       </View>
     </Card>
   )

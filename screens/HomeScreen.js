@@ -83,6 +83,12 @@ export default function HomeScreen({ navigation }) {
       icon: "🌍",
       color: colors.primary,
     },
+    {
+      title: t("aboutOurSchool"),
+      screen: ROUTES.ABOUT_SCHOOL,
+      icon: "🏫",
+      color: colors.primary,
+    },
   ]
 
   return (
@@ -105,7 +111,7 @@ export default function HomeScreen({ navigation }) {
                   <Text style={styles.icon}>{category.icon}</Text>
                   <View style={styles.cardText}>
                     <Text style={styles.cardTitle}>{category.title}</Text>
-                    <Text style={styles.cardDescription}>{category.description}</Text>
+                    {category.description && <Text style={styles.cardDescription}>{category.description}</Text>}
                   </View>
                 </View>
               </Card>

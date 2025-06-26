@@ -8,6 +8,7 @@ import { usePeople } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { useUser } from "../providers/UserProvider"
 import { createSharedStyles, SPACING_UNIT } from "../styles"
+import { useTranslation } from "react-i18next"
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("")
@@ -15,6 +16,7 @@ export default function LoginScreen() {
   const { data: people, isLoading, error, refetch } = usePeople()
   const { login } = useUser()
   const { colors } = useTheme()
+  const { t } = useTranslation()
 
   const sharedStyles = createSharedStyles(colors)
   const styles = StyleSheet.create({
@@ -39,12 +41,12 @@ export default function LoginScreen() {
       login(user)
       navigation.reset({ index: 0, routes: [{ name: ROUTES.HOME }] })
     } else {
-      Alert.alert("Login Failed", "No user found with that email.")
+      Alert.alert(t("loginFailed"), t("noUserFound"))
     }
   }
 
   if (isLoading) {
-    return <LoadingSpinner message="Loading people..." />
+    return <LoadingSpinner message={t("loadingPeople")} />
   }
 
   if (error) {
@@ -54,26 +56,26 @@ export default function LoginScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScreenHeader 
-        title="Login" 
+        title={t("login")} 
         titleStyle={{ color: colors.primary }}
       />
       
       <Input
-        label="Email"
+        label={t("email")}
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
+        placeholder={t("enterEmail")}
         autoCapitalize="none"
         keyboardType="email-address"
       />
       
       <Button 
-        title="Login" 
+        title={t("loginButton")} 
         onPress={handleLogin}
         disabled={!email.trim()}
       />
       
-      <Text style={styles.hint}>Use an email from the json1.txt file.</Text>
+      <Text style={styles.hint}>{t("loginHint")}</Text>
     </SafeAreaView>
   )
 } 
