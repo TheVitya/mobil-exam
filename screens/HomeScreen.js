@@ -1,12 +1,9 @@
 import { useTranslation } from "react-i18next"
-import { ScrollView, StyleSheet } from "react-native"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedTouchableOpacity from "../components/Themed/ThemedTouchableOpacity"
-import ThemedView from "../components/Themed/ThemedView"
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { ROUTES } from "../constants"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function HomeScreen({ navigation }) {
   const { t } = useTranslation()
@@ -103,32 +100,32 @@ export default function HomeScreen({ navigation }) {
   ]
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <ThemedView style={styles.header}>
-          <ThemedText style={styles.title}>{t("dataExplorer")}</ThemedText>
-          <ThemedText style={styles.subtitle}>{t("exploreDatasets")}</ThemedText>
-        </ThemedView>
+        <View style={styles.header}>
+          <Text style={styles.title}>{t("dataExplorer")}</Text>
+          <Text style={styles.subtitle}>{t("exploreDatasets")}</Text>
+        </View>
 
-        <ThemedView style={styles.gridColumn}>
+        <View style={styles.gridColumn}>
           {dataCategories.map((category, index) => (
-            <ThemedTouchableOpacity
+            <TouchableOpacity
               key={index}
               style={[styles.card, { borderLeftColor: category.color }]}
               onPress={() => navigation.navigate(category.screen)}
               activeOpacity={0.7}
             >
-              <ThemedView style={styles.cardContent}>
-                <ThemedText style={styles.icon}>{category.icon}</ThemedText>
-                <ThemedView style={styles.cardText}>
-                  <ThemedText style={styles.cardTitle}>{category.title}</ThemedText>
-                  <ThemedText style={styles.cardDescription}>{category.description}</ThemedText>
-                </ThemedView>
-              </ThemedView>
-            </ThemedTouchableOpacity>
+              <View style={styles.cardContent}>
+                <Text style={styles.icon}>{category.icon}</Text>
+                <View style={styles.cardText}>
+                  <Text style={styles.cardTitle}>{category.title}</Text>
+                  <Text style={styles.cardDescription}>{category.description}</Text>
+                </View>
+              </View>
+            </TouchableOpacity>
           ))}
-        </ThemedView>
+        </View>
       </ScrollView>
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

@@ -1,24 +1,23 @@
 import { Picker } from '@react-native-picker/picker'
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet, TextInput } from "react-native"
+import { FlatList, StyleSheet, Text, TextInput, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedView from "../components/Themed/ThemedView"
-import { usePassengers } from "../hooks/useDataQueries"
+import { usePassengers } from '../hooks/useDataQueries'
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
 
 export default function PassengersScreen() {
   const { data: passengers, isLoading, error, refetch } = usePassengers()
-  const [sortBy, setSortBy] = useState("Pclass")
-  const [filterPclass, setFilterPclass] = useState("All")
-  const [filterSurvived, setFilterSurvived] = useState("All")
-  const [filterName, setFilterName] = useState("")
   const { t } = useTranslation()
   const { colors } = useTheme()
+
+  const [sortBy, setSortBy] = useState("Pclass")
+  const [filterPclass, setFilterPclass] = useState("all")
+  const [filterSurvived, setFilterSurvived] = useState("all")
+  const [filterName, setFilterName] = useState("")
 
   const sharedStyles = createSharedStyles(colors)
   const styles = StyleSheet.create({
@@ -80,8 +79,8 @@ export default function PassengersScreen() {
   const filteredPassengers = useMemo(() => {
     if (!passengers) return []
     return passengers.filter((p) => {
-      const matchPclass = filterPclass === t("all") || String(p.Pclass) === String(filterPclass)
-      const matchSurvived = filterSurvived === t("all") || (filterSurvived === t("survived") ? p.Survived : !p.Survived)
+      const matchPclass = filterPclass === "all" || String(p.Pclass) === filterPclass
+      const matchSurvived = filterSurvived === "all" || (filterSurvived === "survived" ? p.Survived : !p.Survived)
       const matchName = p.Name.toLowerCase().includes(filterName.toLowerCase())
       return matchPclass && matchSurvived && matchName
     })
@@ -96,36 +95,36 @@ export default function PassengersScreen() {
   }, [filteredPassengers, sortBy])
 
   const renderPassenger = ({ item }) => (
-    <ThemedView style={styles.card}>
-      <ThemedView style={styles.headerRow}>
-        <ThemedText style={styles.name}>{item.Name}</ThemedText>
-        <ThemedView style={[styles.badge, { backgroundColor: item.Survived ? colors.primary : colors.textColorSecondary }]}>
-          <ThemedText style={styles.badgeText}>{item.Survived ? t("survived") : t("didNotSurvive")}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.details}>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("class")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Pclass}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("sex")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Sex}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("age")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Age || t("unknown")}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("fare")}</ThemedText>
-          <ThemedText style={styles.value}>${item.Fare ? item.Fare.toFixed(2) : t("na")}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("embarked")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Embarked || t("unknown")}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-    </ThemedView>
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.name}>{item.Name}</Text>
+        <View style={[styles.badge, { backgroundColor: item.Survived ? colors.primary : colors.textColorSecondary }]}>
+          <Text style={styles.badgeText}>{item.Survived ? t("survived") : t("didNotSurvive")}</Text>
+        </View>
+      </View>
+      <View style={styles.details}>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("class")}</Text>
+          <Text style={styles.value}>{item.Pclass}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("sex")}</Text>
+          <Text style={styles.value}>{item.Sex}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("age")}</Text>
+          <Text style={styles.value}>{item.Age || t("unknown")}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("fare")}</Text>
+          <Text style={styles.value}>${item.Fare ? item.Fare.toFixed(2) : t("na")}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("embarked")}</Text>
+          <Text style={styles.value}>{item.Embarked || t("unknown")}</Text>
+        </View>
+      </View>
+    </View>
   )
 
   if (isLoading) {
@@ -137,49 +136,49 @@ export default function PassengersScreen() {
   }
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
-      <ThemedView style={styles.filterContainer}>
-        <ThemedView style={styles.filterItem}>
-          <ThemedText style={styles.filterLabel}>{t("class")}</ThemedText>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.filterContainer}>
+        <View style={styles.filterItem}>
+          <Text style={styles.filterLabel}>{t("class")}</Text>
           <Picker
             selectedValue={filterPclass}
             style={styles.picker}
             onValueChange={setFilterPclass}
           >
             <Picker.Item label={t("all")}
-              value={t("all")} />
+              value="all" />
             <Picker.Item label={t("one")}
-              value={t("one")} />
+              value="1" />
             <Picker.Item label={t("two")}
-              value={t("two")} />
+              value="2" />
             <Picker.Item label={t("three")}
-              value={t("three")} />
+              value="3" />
           </Picker>
-        </ThemedView>
-        <ThemedView style={styles.filterItem}>
-          <ThemedText style={styles.filterLabel}>{t("survived")}</ThemedText>
+        </View>
+        <View style={styles.filterItem}>
+          <Text style={styles.filterLabel}>{t("survived")}</Text>
           <Picker
             selectedValue={filterSurvived}
             style={styles.picker}
             onValueChange={setFilterSurvived}
           >
-            <Picker.Item label={t("all")} value={t("all")} />
-            <Picker.Item label={t("survived")} value={t("survived")} />
-            <Picker.Item label={t("didNotSurvive")} value={t("didNotSurvive")} />
+            <Picker.Item label={t("all")} value="all" />
+            <Picker.Item label={t("survived")} value="survived" />
+            <Picker.Item label={t("didNotSurvive")} value="notSurvived" />
           </Picker>
-        </ThemedView>
-        <ThemedView style={styles.filterItem}>
-          <ThemedText style={styles.filterLabel}>{t("nameLabel")}</ThemedText>
+        </View>
+        <View style={styles.filterItem}>
+          <Text style={styles.filterLabel}>{t("nameLabel")}</Text>
           <TextInput
             style={styles.textInput}
             placeholder={t("searchName")}
             value={filterName}
             onChangeText={setFilterName}
           />
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.sortContainer}>
-        <ThemedText style={styles.sortLabel}>{t("sortBy")}</ThemedText>
+        </View>
+      </View>
+      <View style={styles.sortContainer}>
+        <Text style={styles.sortLabel}>{t("sortBy")}</Text>
         <Picker
           selectedValue={sortBy}
           style={styles.picker}
@@ -192,7 +191,7 @@ export default function PassengersScreen() {
           <Picker.Item label={t("nameSort")}
             value="Name" />
         </Picker>
-      </ThemedView>
+      </View>
       <FlatList
         data={sortedPassengers}
         renderItem={renderPassenger}
@@ -202,6 +201,6 @@ export default function PassengersScreen() {
         onRefresh={refetch}
         refreshing={isLoading}
       />
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

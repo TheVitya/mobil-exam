@@ -1,13 +1,10 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { StyleSheet } from "react-native"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedTouchableOpacity from "../components/Themed/ThemedTouchableOpacity"
-import ThemedView from "../components/Themed/ThemedView"
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { useTheme } from "../providers/ThemeProvider"
 import { useUser } from "../providers/UserProvider"
 import { createSharedStyles } from "../styles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function MenuScreen() {
   const { t, i18n } = useTranslation()
@@ -41,15 +38,20 @@ export default function MenuScreen() {
     button: {
       paddingVertical: 12,
       paddingHorizontal: 24,
-      borderRadius: 8,
       marginHorizontal: 8,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 3.84,
+      elevation: 5,
     },
     selected: {
-      // backgroundColor handled inline
+      color: colors.textColorTertiary,
     },
     buttonText: {
       fontSize: 16,
       fontWeight: "600",
+      color: colors.textColor,
     },
   })
 
@@ -59,38 +61,38 @@ export default function MenuScreen() {
   }
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
-      <ThemedText style={styles.title}>{t("menu")}</ThemedText>
-      <ThemedText style={styles.label}>{t("selectLanguage")}</ThemedText>
-      <ThemedView style={styles.languageRow}>
-        <ThemedTouchableOpacity
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>{t("menu")}</Text>
+      <Text style={styles.label}>{t("selectLanguage")}</Text>
+      <View style={styles.languageRow}>
+        <TouchableOpacity
           style={[styles.button, language === "en" && styles.selected, { backgroundColor: language === "en" ? colors.primary : colors.cardColor }]}
           onPress={() => changeLanguage("en")}
         >
-          <ThemedText style={[styles.buttonText, { color: colors.textColorTertiary }]}>{t("english")}</ThemedText>
-        </ThemedTouchableOpacity>
-        <ThemedTouchableOpacity
+          <Text style={[styles.buttonText, language === "en" && styles.selected]}>{t("english")}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.button, language === "hu" && styles.selected, { backgroundColor: language === "hu" ? colors.primary : colors.cardColor }]}
           onPress={() => changeLanguage("hu")}
         >
-          <ThemedText style={[styles.buttonText, { color: colors.textColorTertiary }]}>{t("hungarian")}</ThemedText>
-        </ThemedTouchableOpacity>
-      </ThemedView>
-      <ThemedText style={[styles.label, { marginTop: 32 }]}>{t("colorScheme") || "Color Scheme"}</ThemedText>
-      <ThemedView style={styles.languageRow}>
-        <ThemedTouchableOpacity
+          <Text style={[styles.buttonText, language === "hu" && styles.selected]}>{t("hungarian")}</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={[styles.label, { marginTop: 32 }]}>{t("colorScheme") || "Color Scheme"}</Text>
+      <View style={styles.languageRow}>
+        <TouchableOpacity
           style={[styles.button, theme === "light" && styles.selected, { backgroundColor: theme === "light" ? colors.primary : colors.cardColor }]}
           onPress={() => theme !== "light" && toggleTheme()}
         >
-          <ThemedText style={[styles.buttonText, { color: colors.textColorTertiary }]}>{t("light") || "Light"}</ThemedText>
-        </ThemedTouchableOpacity>
-        <ThemedTouchableOpacity
+          <Text style={[styles.buttonText, theme === "light" && styles.selected]}>{t("light") || "Light"}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
           style={[styles.button, theme === "dark" && styles.selected, { backgroundColor: theme === "dark" ? colors.primary : colors.cardColor }]}
           onPress={() => theme !== "dark" && toggleTheme()}
         >
-          <ThemedText style={[styles.buttonText, { color: colors.textColorTertiary }]}>{t("dark") || "Dark"}</ThemedText>
-        </ThemedTouchableOpacity>
-      </ThemedView>
-    </ThemedSafeAreaView>
+          <Text style={[styles.buttonText, theme === "dark" && styles.selected]}>{t("dark") || "Dark"}</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   )
 } 

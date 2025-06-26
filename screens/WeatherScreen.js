@@ -1,11 +1,9 @@
-import { StyleSheet, FlatList } from "react-native"
-import { useWeather } from "../hooks/useDataQueries"
-import LoadingSpinner from "../components/LoadingSpinner"
-import ErrorMessage from "../components/ErrorMessage"
 import { useTranslation } from "react-i18next"
-import ThemedView from "../components/Themed/ThemedView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
+import { FlatList, StyleSheet, Text, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import ErrorMessage from "../components/ErrorMessage"
+import LoadingSpinner from "../components/LoadingSpinner"
+import { useWeather } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
 
@@ -42,49 +40,49 @@ export default function WeatherScreen() {
   })
 
   const renderWeatherItem = ({ item, index }) => (
-    <ThemedView style={styles.card}>
-      <ThemedView style={styles.headerRow}>
-        <ThemedText style={styles.title}>{t("day", { index: index + 1 })}</ThemedText>
-        <ThemedView style={styles.tempRange}>
-          <ThemedText style={styles.minTemp}>{item.MinTemp}\u00b0</ThemedText>
-          <ThemedText style={styles.tempSeparator}>/</ThemedText>
-          <ThemedText style={styles.maxTemp}>{item.MaxTemp}\u00b0</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.grid}>
-        <ThemedView style={styles.gridItem}>
-          <ThemedText style={styles.label}>{t("rainfall")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Rainfall}mm</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.gridItem}>
-          <ThemedText style={styles.label}>{t("sunshine")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Sunshine}h</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.gridItem}>
-          <ThemedText style={styles.label}>{t("windGust")}</ThemedText>
-          <ThemedText style={styles.value}>
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>{t("day", { index: index + 1 })}</Text>
+        <View style={styles.tempRange}>
+          <Text style={styles.minTemp}>{item.MinTemp}\u00b0</Text>
+          <Text style={styles.tempSeparator}>/</Text>
+          <Text style={styles.maxTemp}>{item.MaxTemp}\u00b0</Text>
+        </View>
+      </View>
+      <View style={styles.grid}>
+        <View style={styles.gridItem}>
+          <Text style={styles.label}>{t("rainfall")}</Text>
+          <Text style={styles.value}>{item.Rainfall}mm</Text>
+        </View>
+        <View style={styles.gridItem}>
+          <Text style={styles.label}>{t("sunshine")}</Text>
+          <Text style={styles.value}>{item.Sunshine}h</Text>
+        </View>
+        <View style={styles.gridItem}>
+          <Text style={styles.label}>{t("windGust")}</Text>
+          <Text style={styles.value}>
             {item.WindGustSpeed}km/h {item.WindGustDir}
-          </ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.gridItem}>
-          <ThemedText style={styles.label}>{t("humidity9am")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Humidity9am}%</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.gridItem}>
-          <ThemedText style={styles.label}>{t("humidity3pm")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Humidity3pm}%</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.gridItem}>
-          <ThemedText style={styles.label}>{t("pressure")}</ThemedText>
-          <ThemedText style={styles.value}>{item.Pressure9am}hPa</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.footer}>
-        <ThemedView style={[styles.badge, { backgroundColor: item.RainTomorrow === "Yes" ? colors.primary : colors.textColorSecondary }]}>
-          <ThemedText style={styles.badgeText}>{t("rainTomorrow", { value: item.RainTomorrow })}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-    </ThemedView>
+          </Text>
+        </View>
+        <View style={styles.gridItem}>
+          <Text style={styles.label}>{t("humidity9am")}</Text>
+          <Text style={styles.value}>{item.Humidity9am}%</Text>
+        </View>
+        <View style={styles.gridItem}>
+          <Text style={styles.label}>{t("humidity3pm")}</Text>
+          <Text style={styles.value}>{item.Humidity3pm}%</Text>
+        </View>
+        <View style={styles.gridItem}>
+          <Text style={styles.label}>{t("pressure")}</Text>
+          <Text style={styles.value}>{item.Pressure9am}hPa</Text>
+        </View>
+      </View>
+      <View style={styles.footer}>
+        <View style={[styles.badge, { backgroundColor: item.RainTomorrow === "Yes" ? colors.primary : colors.textColorSecondary }]}>
+          <Text style={styles.badgeText}>{t("rainTomorrow", { value: item.RainTomorrow })}</Text>
+        </View>
+      </View>
+    </View>
   )
 
   if (isLoading) {
@@ -96,7 +94,7 @@ export default function WeatherScreen() {
   }
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={weather}
         renderItem={renderWeatherItem}
@@ -106,6 +104,6 @@ export default function WeatherScreen() {
         onRefresh={refetch}
         refreshing={isLoading}
       />
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

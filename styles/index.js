@@ -25,7 +25,7 @@ export const createSharedStyles = (colors) => StyleSheet.create({
     backgroundColor: colors.backgroundColor,
   },
   list: {
-    padding: 16,
+    padding: 20,
   },
   card: {
     backgroundColor: colors.cardColor,

@@ -1,14 +1,12 @@
 import { useNavigation } from "@react-navigation/native"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { Button, StyleSheet } from "react-native"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedView from "../components/Themed/ThemedView"
+import { Button, StyleSheet, View, Text } from "react-native"
 import { ROUTES } from "../constants"
 import { useTheme } from "../providers/ThemeProvider"
 import { useUser } from "../providers/UserProvider"
 import { createSharedStyles } from "../styles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function ProfileScreen() {
   const { t } = useTranslation()
@@ -60,16 +58,16 @@ export default function ProfileScreen() {
   })
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
-      <ThemedText style={styles.title}>{t("profile")}</ThemedText>
-      <ThemedView style={styles.infoBox}>
-        <ThemedText style={styles.label}>{t("name")}</ThemedText>
-        <ThemedText style={styles.value}>{user.name}</ThemedText>
-        <ThemedText style={styles.label}>{t("emailLabel")}</ThemedText>
-        <ThemedText style={styles.value}>{user.email}</ThemedText>
-        <ThemedText style={styles.label}>{t("creator")}</ThemedText>
-        <ThemedText style={styles.value}>Nagy Viktor 26224104</ThemedText>
-        <ThemedView style={styles.logoutButtonContainer}>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>{t("profile")}</Text>
+      <View style={styles.infoBox}>
+        <Text style={styles.label}>{t("name")}</Text>
+        <Text style={styles.value}>{user.name}</Text>
+        <Text style={styles.label}>{t("emailLabel")}</Text>
+        <Text style={styles.value}>{user.email}</Text>
+        <Text style={styles.label}>{t("creator")}</Text>
+        <Text style={styles.value}>Nagy Viktor 26224104</Text>
+        <View style={styles.logoutButtonContainer}>
           <Button
             title={t("logout")}
             onPress={() => {
@@ -78,8 +76,8 @@ export default function ProfileScreen() {
             }}
             color={colors.primary}
           />
-        </ThemedView>
-      </ThemedView>
-    </ThemedSafeAreaView>
+        </View>
+      </View>
+    </SafeAreaView>
   )
 } 

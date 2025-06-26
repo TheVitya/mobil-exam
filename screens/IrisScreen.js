@@ -1,10 +1,8 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StyleSheet, Text, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedView from "../components/Themed/ThemedView"
 import { useIris } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
@@ -64,42 +62,42 @@ export default function IrisScreen() {
   })
 
   const renderIris = ({ item, index }) => (
-    <ThemedView style={styles.card}>
-      <ThemedView style={styles.headerRow}>
-        <ThemedText style={styles.title}>{t("iris", { index: index + 1 })}</ThemedText>
-        <ThemedView style={[styles.badge, { backgroundColor: getVarietyColor(item.variety, colors) }]}>
-          <ThemedText style={styles.badgeText}>{item.variety}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.measurements}>
-        <ThemedView style={styles.measurementGroup}>
-          <ThemedText style={styles.groupTitle}>{t("sepal")}</ThemedText>
-          <ThemedView style={styles.row}>
-            <ThemedView style={styles.measurement}>
-              <ThemedText style={styles.label}>{t("length")}</ThemedText>
-              <ThemedText style={styles.infoValueLarge}>{item["sepal.length"]} cm</ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.measurement}>
-              <ThemedText style={styles.label}>{t("width")}</ThemedText>
-              <ThemedText style={styles.infoValueLarge}>{item["sepal.width"]} cm</ThemedText>
-            </ThemedView>
-          </ThemedView>
-        </ThemedView>
-        <ThemedView style={styles.measurementGroup}>
-          <ThemedText style={styles.groupTitle}>{t("petal")}</ThemedText>
-          <ThemedView style={styles.row}>
-            <ThemedView style={styles.measurement}>
-              <ThemedText style={styles.label}>{t("length")}</ThemedText>
-              <ThemedText style={styles.infoValueLarge}>{item["petal.length"]} cm</ThemedText>
-            </ThemedView>
-            <ThemedView style={styles.measurement}>
-              <ThemedText style={styles.label}>{t("width")}</ThemedText>
-              <ThemedText style={styles.infoValueLarge}>{item["petal.width"]} cm</ThemedText>
-            </ThemedView>
-          </ThemedView>
-        </ThemedView>
-      </ThemedView>
-    </ThemedView>
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>{t("iris", { index: index + 1 })}</Text>
+        <View style={[styles.badge, { backgroundColor: getVarietyColor(item.variety, colors) }]}>
+          <Text style={styles.badgeText}>{item.variety}</Text>
+        </View>
+      </View>
+      <View style={styles.measurements}>
+        <View style={styles.measurementGroup}>
+          <Text style={styles.groupTitle}>{t("sepal")}</Text>
+          <View style={styles.row}>
+            <View style={styles.measurement}>
+              <Text style={styles.label}>{t("length")}</Text>
+              <Text style={styles.infoValueLarge}>{item["sepal.length"]} cm</Text>
+            </View>
+            <View style={styles.measurement}>
+              <Text style={styles.label}>{t("width")}</Text>
+              <Text style={styles.infoValueLarge}>{item["sepal.width"]} cm</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.measurementGroup}>
+          <Text style={styles.groupTitle}>{t("petal")}</Text>
+          <View style={styles.row}>
+            <View style={styles.measurement}>
+              <Text style={styles.label}>{t("length")}</Text>
+              <Text style={styles.infoValueLarge}>{item["petal.length"]} cm</Text>
+            </View>
+            <View style={styles.measurement}>
+              <Text style={styles.label}>{t("width")}</Text>
+              <Text style={styles.infoValueLarge}>{item["petal.width"]} cm</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
   )
 
   if (isLoading) {
@@ -111,7 +109,7 @@ export default function IrisScreen() {
   }
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={iris}
         renderItem={renderIris}
@@ -121,6 +119,6 @@ export default function IrisScreen() {
         onRefresh={refetch}
         refreshing={isLoading}
       />
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

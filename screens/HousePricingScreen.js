@@ -1,10 +1,8 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StyleSheet, Text, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedView from "../components/Themed/ThemedView"
 import { useHousePricing } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
@@ -62,73 +60,73 @@ export default function HousePricingScreen() {
   }
 
   const renderHouse = ({ item, index }) => (
-    <ThemedView style={styles.card}>
-      <ThemedView style={styles.headerRow}>
-        <ThemedText style={styles.title}>{formatPrice(item.price)}</ThemedText>
-        <ThemedView
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>{formatPrice(item.price)}</Text>
+        <View
           style={[
             styles.badge,
             { backgroundColor: item.furnishingstatus === "furnished" ? colors.primary : colors.textColorSecondary },
           ]}
         >
-          <ThemedText style={styles.badgeText}>{item.furnishingstatus}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.basicInfo}>
-        <ThemedView style={styles.infoItem}>
-          <ThemedText style={styles.infoValueLarge}>{item.bedrooms}</ThemedText>
-          <ThemedText style={styles.infoLabel}>{t("bedrooms")}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.infoItem}>
-          <ThemedText style={styles.infoValueLarge}>{item.bathrooms}</ThemedText>
-          <ThemedText style={styles.infoLabel}>{t("bathrooms")}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.infoItem}>
-          <ThemedText style={styles.infoValueLarge}>{item.stories}</ThemedText>
-          <ThemedText style={styles.infoLabel}>{t("stories")}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.infoItem}>
-          <ThemedText style={styles.infoValueLarge}>{item.area}</ThemedText>
-          <ThemedText style={styles.infoLabel}>{t("sqFt")}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.features}>
-        <ThemedText style={styles.featuresTitle}>{t("features")}</ThemedText>
-        <ThemedView style={styles.featureGrid}>
-          <ThemedView style={styles.feature}>
-            <ThemedText style={[styles.text, { color: item.mainroad === "yes" ? colors.primary : colors.textColorSecondary }]}>
+          <Text style={styles.badgeText}>{item.furnishingstatus}</Text>
+        </View>
+      </View>
+      <View style={styles.basicInfo}>
+        <View style={styles.infoItem}>
+          <Text style={styles.infoValueLarge}>{item.bedrooms}</Text>
+          <Text style={styles.infoLabel}>{t("bedrooms")}</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.infoValueLarge}>{item.bathrooms}</Text>
+          <Text style={styles.infoLabel}>{t("bathrooms")}</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.infoValueLarge}>{item.stories}</Text>
+          <Text style={styles.infoLabel}>{t("stories")}</Text>
+        </View>
+        <View style={styles.infoItem}>
+          <Text style={styles.infoValueLarge}>{item.area}</Text>
+          <Text style={styles.infoLabel}>{t("sqFt")}</Text>
+        </View>
+      </View>
+      <View style={styles.features}>
+        <Text style={styles.featuresTitle}>{t("features")}</Text>
+        <View style={styles.featureGrid}>
+          <View style={styles.feature}>
+            <Text style={[styles.text, { color: item.mainroad === "yes" ? colors.primary : colors.textColorSecondary }]}>
               {item.mainroad === "yes" ? "\u2713" : "\u2717"} {t("mainRoad")}
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.feature}>
-            <ThemedText style={[styles.text, { color: item.guestroom === "yes" ? colors.primary : colors.textColorSecondary }]}>
+            </Text>
+          </View>
+          <View style={styles.feature}>
+            <Text style={[styles.text, { color: item.guestroom === "yes" ? colors.primary : colors.textColorSecondary }]}>
               {item.guestroom === "yes" ? "\u2713" : "\u2717"} {t("guestRoom")}
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.feature}>
-            <ThemedText style={[styles.text, { color: item.basement === "yes" ? colors.primary : colors.textColorSecondary }]}>
+            </Text>
+          </View>
+          <View style={styles.feature}>
+            <Text style={[styles.text, { color: item.basement === "yes" ? colors.primary : colors.textColorSecondary }]}>
               {item.basement === "yes" ? "\u2713" : "\u2717"} {t("basement")}
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.feature}>
-            <ThemedText style={[styles.text, { color: item.airconditioning === "yes" ? colors.primary : colors.textColorSecondary }]}>
+            </Text>
+          </View>
+          <View style={styles.feature}>
+            <Text style={[styles.text, { color: item.airconditioning === "yes" ? colors.primary : colors.textColorSecondary }]}>
               {item.airconditioning === "yes" ? "\u2713" : "\u2717"} {t("ac")}
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.feature}>
-            <ThemedText style={[styles.text, { color: item.hotwaterheating === "yes" ? colors.primary : colors.textColorSecondary }]}>
+            </Text>
+          </View>
+          <View style={styles.feature}>
+            <Text style={[styles.text, { color: item.hotwaterheating === "yes" ? colors.primary : colors.textColorSecondary }]}>
               {item.hotwaterheating === "yes" ? "\u2713" : "\u2717"} {t("hotWater")}
-            </ThemedText>
-          </ThemedView>
-          <ThemedView style={styles.feature}>
-            <ThemedText style={[styles.text, { color: item.prefarea === "yes" ? colors.primary : colors.textColorSecondary }]}>
+            </Text>
+          </View>
+          <View style={styles.feature}>
+            <Text style={[styles.text, { color: item.prefarea === "yes" ? colors.primary : colors.textColorSecondary }]}>
               {item.prefarea === "yes" ? "\u2713" : "\u2717"} {t("preferredArea")}
-            </ThemedText>
-          </ThemedView>
-        </ThemedView>
-        <ThemedText style={styles.text}>{t("parking", { count: item.parking })}</ThemedText>
-      </ThemedView>
-    </ThemedView>
+            </Text>
+          </View>
+        </View>
+        <Text style={styles.text}>{t("parking", { count: item.parking })}</Text>
+      </View>
+    </View>
   )
 
   if (isLoading) {
@@ -140,7 +138,7 @@ export default function HousePricingScreen() {
   }
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={houses}
         renderItem={renderHouse}
@@ -150,6 +148,6 @@ export default function HousePricingScreen() {
         onRefresh={refetch}
         refreshing={isLoading}
       />
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

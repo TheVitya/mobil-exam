@@ -1,10 +1,8 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StyleSheet, View, Text  } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedView from "../components/Themed/ThemedView"
 import { useCountries } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
@@ -65,7 +63,7 @@ export default function CountriesScreen() {
       textAlign: "right",
     },
     timezone: {
-      backgroundColor: colors.cardColor,
+      backgroundColor: colors.backgroundColor,
       borderRadius: 8,
       padding: 12,
     },
@@ -82,55 +80,55 @@ export default function CountriesScreen() {
   })
 
   const renderCountry = ({ item }) => (
-    <ThemedView style={styles.card}>
-      <ThemedView style={styles.headerRow}>
-        <ThemedView style={styles.titleRow}>
-          <ThemedText style={styles.emoji}>{item.emoji}</ThemedText>
-          <ThemedView style={styles.titleInfo}>
-            <ThemedText style={styles.name}>{item.name}</ThemedText>
-            {item.native && <ThemedText style={styles.native}>{item.native}</ThemedText>}
-          </ThemedView>
-        </ThemedView>
-        <ThemedView style={styles.codes}>
-          <ThemedText style={styles.iso}>{item.iso2}</ThemedText>
-        </ThemedView>
-      </ThemedView>
-      <ThemedView style={styles.details}>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("capital")}</ThemedText>
-          <ThemedText style={styles.value}>{item.capital}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("region")}</ThemedText>
-          <ThemedText style={styles.value}>
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <View style={styles.titleRow}>
+          <Text style={styles.emoji}>{item.emoji}</Text>
+          <View style={styles.titleInfo}>
+            <Text style={styles.name}>{item.name}</Text>
+            {item.native && <Text style={styles.native}>{item.native}</Text>}
+          </View>
+        </View>
+        <View style={styles.codes}>
+          <Text style={styles.iso}>{item.iso2}</Text>
+        </View>
+      </View>
+      <View style={styles.details}>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("capital")}</Text>
+          <Text style={styles.value}>{item.capital}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("region")}</Text>
+          <Text style={styles.value}>
             {item.region}
             {item.subregion ? `, ${item.subregion}` : ""}
-          </ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("currency")}</ThemedText>
-          <ThemedText style={styles.value}>
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("currency")}</Text>
+          <Text style={styles.value}>
             {item.currency_name} ({item.currency_symbol})
-          </ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("phoneCode")}</ThemedText>
-          <ThemedText style={styles.value}>+{item.phone_code}</ThemedText>
-        </ThemedView>
-        <ThemedView style={styles.row}>
-          <ThemedText style={styles.label}>{t("domain")}</ThemedText>
-          <ThemedText style={styles.value}>{item.tld}</ThemedText>
-        </ThemedView>
-      </ThemedView>
+          </Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("phoneCode")}</Text>
+          <Text style={styles.value}>+{item.phone_code}</Text>
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>{t("domain")}</Text>
+          <Text style={styles.value}>{item.tld}</Text>
+        </View>
+      </View>
       {item.timezones && item.timezones.length > 0 && (
-        <ThemedView style={styles.timezone}>
-          <ThemedText style={styles.timezoneTitle}>{t("timezone")}</ThemedText>
-          <ThemedText style={styles.timezoneInfo}>
+        <View style={styles.timezone}>
+          <Text style={styles.timezoneTitle}>{t("timezone")}</Text>
+          <Text style={styles.timezoneInfo}>
             {item.timezones[0]?.tzName} ({item.timezones[0]?.gmtOffsetName})
-          </ThemedText>
-        </ThemedView>
+          </Text>
+        </View>
       )}
-    </ThemedView>
+    </View>
   )
 
   if (isLoading) {
@@ -142,7 +140,7 @@ export default function CountriesScreen() {
   }
   
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={countries}
         renderItem={renderCountry}
@@ -152,6 +150,6 @@ export default function CountriesScreen() {
         onRefresh={refetch}
         refreshing={isLoading}
       />
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

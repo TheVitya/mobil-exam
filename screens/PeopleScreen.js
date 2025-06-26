@@ -1,14 +1,11 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, Linking, StyleSheet } from "react-native"
+import { FlatList, Linking, StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
-import ThemedSafeAreaView from "../components/Themed/ThemedSafeAreaView"
-import ThemedText from "../components/Themed/ThemedText"
-import ThemedTouchableOpacity from "../components/Themed/ThemedTouchableOpacity"
-import ThemedView from "../components/Themed/ThemedView"
 import { usePeople } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function PeopleScreen() {
   const { data: people, isLoading, error, refetch } = usePeople()
@@ -44,45 +41,45 @@ export default function PeopleScreen() {
   }
 
   const renderPerson = ({ item }) => (
-    <ThemedView style={styles.card}>
-      <ThemedView style={styles.headerRow}>
-        <ThemedText style={styles.title}>{item.name}</ThemedText>
-        <ThemedText style={styles.subtitle}>@{item.username}</ThemedText>
-      </ThemedView>
+    <View style={styles.card}>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.subtitle}>@{item.username}</Text>
+      </View>
 
-      <ThemedView style={styles.section}>
-        <ThemedText style={styles.sectionTitle}>{t("contact")}</ThemedText>
-        <ThemedTouchableOpacity onPress={() => handleEmailPress(item.email)}>
-          <ThemedText style={styles.link}>{item.email}</ThemedText>
-        </ThemedTouchableOpacity>
-        <ThemedTouchableOpacity onPress={() => handlePhonePress(item.phone)}>
-          <ThemedText style={styles.link}>{item.phone}</ThemedText>
-        </ThemedTouchableOpacity>
-        <ThemedTouchableOpacity onPress={() => handleWebsitePress(item.website)}>
-          <ThemedText style={styles.link}>{item.website}</ThemedText>
-        </ThemedTouchableOpacity>
-      </ThemedView>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>{t("contact")}</Text>
+        <TouchableOpacity onPress={() => handleEmailPress(item.email)}>
+          <Text style={styles.link}>{item.email}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handlePhonePress(item.phone)}>
+          <Text style={styles.link}>{item.phone}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleWebsitePress(item.website)}>
+          <Text style={styles.link}>{item.website}</Text>
+        </TouchableOpacity>
+      </View>
 
       {item.address && (
-        <ThemedView style={styles.section}>
-          <ThemedText style={styles.sectionTitle}>{t("address")}</ThemedText>
-          <ThemedText style={styles.text}>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t("address")}</Text>
+          <Text style={styles.text}>
             {item.address.suite}, {item.address.street}
-          </ThemedText>
-          <ThemedText style={styles.text}>
+          </Text>
+          <Text style={styles.text}>
             {item.address.city}, {item.address.zipcode}
-          </ThemedText>
-        </ThemedView>
+          </Text>
+        </View>
       )}
 
       {item.company && (
-        <ThemedView style={styles.section}>
-          <ThemedText style={styles.sectionTitle}>{t("company")}</ThemedText>
-          <ThemedText style={styles.companyName}>{item.company.name}</ThemedText>
-          <ThemedText style={styles.catchPhrase}>{item.company.catchPhrase}</ThemedText>
-        </ThemedView>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t("company")}</Text>
+          <Text style={styles.companyName}>{item.company.name}</Text>
+          <Text style={styles.catchPhrase}>{item.company.catchPhrase}</Text>
+        </View>
       )}
-    </ThemedView>
+    </View>
   )
 
   if (isLoading) {
@@ -94,7 +91,7 @@ export default function PeopleScreen() {
   }
 
   return (
-    <ThemedSafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={people}
         renderItem={renderPerson}
@@ -104,6 +101,6 @@ export default function PeopleScreen() {
         onRefresh={refetch}
         refreshing={isLoading}
       />
-    </ThemedSafeAreaView>
+    </SafeAreaView>
   )
 }

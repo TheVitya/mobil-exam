@@ -1,6 +1,10 @@
 import i18n from "i18next"
 import React from "react"
 import { I18nextProvider, initReactI18next } from "react-i18next"
+import { MMKV } from "react-native-mmkv"
+import { MMKV_KEYS } from "../constants"
+
+const storage = new MMKV()
 
 const resources = {
   en: {
@@ -14,6 +18,10 @@ const resources = {
       hungarian: "Hungarian",
       dataExplorer: "Data Explorer",
       exploreDatasets: "Explore different datasets and visualizations",
+      colorScheme: "Color Scheme",
+      light: "Light",
+      dark: "Dark",
+      system: "System",
 
       // HomeScreen
       titanicPassengers: "Titanic Passengers",
@@ -132,6 +140,10 @@ const resources = {
       hungarian: "Magyar",
       dataExplorer: "Adatböngésző",
       exploreDatasets: "Fedezd fel a különböző adatokat és vizualizációkat",
+      colorScheme: "Szín téma",
+      light: "Világos",
+      dark: "Sötét",
+      system: "Rendszer",
 
       // HomeScreen
       titanicPassengers: "Titanic utasok",
@@ -246,7 +258,7 @@ if (!i18n.isInitialized) {
     .use(initReactI18next)
     .init({
       resources,
-      lng: "en",
+      lng: storage.getString(MMKV_KEYS.LANGUAGE) ?? "en",
       fallbackLng: "en",
       interpolation: { escapeValue: false },
     })
