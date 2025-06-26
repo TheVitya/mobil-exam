@@ -1,16 +1,25 @@
 import { StyleSheet } from "react-native"
 
+export const colors = {
+  primary: "#6366f1",
+  backgroundColor: "#f8fafc",
+  cardColor: "#f9fafb",
+  textColor: "#1f2937",
+  textColorSecondary: "#6b7280",
+  textColorTertiary: "#ffffff",
+}
+
 export const sharedStyles = StyleSheet.create({
   // Layout
   container: {
     flex: 1,
-    backgroundColor: "#f8fafc",
+    backgroundColor: colors.backgroundColor,
   },
   list: {
     padding: 16,
   },
   card: {
-    backgroundColor: "#ffffff",
+    backgroundColor: colors.cardColor,
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -37,52 +46,52 @@ export const sharedStyles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#1f2937",
+    color: colors.textColor,
   },
   name: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#1f2937",
+    color: colors.textColor,
     flex: 1,
     marginRight: 8,
   },
   subtitle: {
     fontSize: 14,
-    color: "#6b7280",
+    color: colors.textColorSecondary,
   },
   boldText: {
     fontSize: 14,
     fontWeight: "500",
-    color: "#1f2937",
+    color: colors.textColor,
   },
   value: {
     fontSize: 14,
-    color: "#1f2937",
+    color: colors.textColor,
     fontWeight: "400",
   },
   label: {
     fontSize: 14,
-    color: "#6b7280",
+    color: colors.textColorSecondary,
     marginBottom: 2,
   },
   smallText: {
     fontSize: 12,
-    color: "#6b7280",
+    color: colors.textColorSecondary,
   },
   link: {
     fontSize: 14,
-    color: "#3b82f6",
+    color: colors.primary,
     marginBottom: 2,
   },
 
   // Input
   textInput: {
     height: 40,
-    borderColor: "#d1d5db",
+    borderColor: colors.textColorSecondary,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 8,
-    backgroundColor: "#fff",
+    backgroundColor: colors.backgroundColor,
   },
 
   // Badges
@@ -99,7 +108,7 @@ export const sharedStyles = StyleSheet.create({
   badgeText: {
     fontSize: 12,
     fontWeight: "500",
-    color: "#ffffff",
+    color: colors.textColorTertiary,
     textAlign: "center",
     textTransform: "capitalize",
   },
@@ -126,13 +135,13 @@ export const sharedStyles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#374151",
+    color: colors.textColor,
     marginBottom: 8,
   },
 
   // Grouped Info Box
   infoBox: {
-    backgroundColor: "#f9fafb",
+    backgroundColor: colors.cardColor,
     borderRadius: 8,
     padding: 12,
     marginBottom: 16,
@@ -140,7 +149,7 @@ export const sharedStyles = StyleSheet.create({
   infoValueLarge: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#1f2937",
+    color: colors.textColor,
     marginBottom: 2,
   },
 })

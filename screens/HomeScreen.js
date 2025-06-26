@@ -1,45 +1,46 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from "react-native"
+import { ROUTES } from "../App"
 
 const dataCategories = [
   {
     title: "Titanic Passengers",
     description: "Historical passenger data from the Titanic",
-    screen: "Passengers",
+    screen: ROUTES.PASSENGERS,
     icon: "🚢",
     color: "#3b82f6",
   },
   {
     title: "People Directory",
     description: "User profiles with contact information",
-    screen: "People",
+    screen: ROUTES.PEOPLE,
     icon: "👥",
     color: "#10b981",
   },
   {
     title: "Weather Data",
     description: "Meteorological observations and forecasts",
-    screen: "Weather",
+    screen: ROUTES.WEATHER,
     icon: "🌤️",
     color: "#f59e0b",
   },
   {
     title: "Iris Dataset",
     description: "Botanical measurements of iris flowers",
-    screen: "Iris",
+    screen: ROUTES.IRIS,
     icon: "🌸",
     color: "#ec4899",
   },
   {
     title: "House Pricing",
     description: "Real estate property information",
-    screen: "HousePricing",
+    screen: ROUTES.HOUSE_PRICING,
     icon: "🏠",
     color: "#8b5cf6",
   },
   {
     title: "Countries",
     description: "Global country information and details",
-    screen: "Countries",
+    screen: ROUTES.COUNTRIES,
     icon: "🌍",
     color: "#ef4444",
   },
