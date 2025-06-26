@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet, Text, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { FlatList, StyleSheet, Text, View, SafeAreaView } from "react-native"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { useHousePricing } from "../hooks/useDataQueries"

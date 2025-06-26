@@ -1,13 +1,12 @@
 import { Picker } from '@react-native-picker/picker'
 import { useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet, Text, TextInput, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { FlatList, SafeAreaView, StyleSheet, Text, TextInput, View } from "react-native"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { usePassengers } from '../hooks/useDataQueries'
 import { useTheme } from "../providers/ThemeProvider"
-import { createSharedStyles } from "../styles"
+import { createSharedStyles, SPACING_UNIT } from "../styles"
 
 export default function PassengersScreen() {
   const { data: passengers, isLoading, error, refetch } = usePassengers()
@@ -24,19 +23,16 @@ export default function PassengersScreen() {
     ...sharedStyles,
     filterContainer: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
       justifyContent: 'space-between',
-      paddingHorizontal: 16,
-      paddingTop: 8,
-      paddingBottom: 4,
+      paddingTop: SPACING_UNIT * 2,
+      paddingHorizontal: SPACING_UNIT * 2,
       backgroundColor: colors.backgroundColor,
       zIndex: 2,
     },
     filterItem: {
       flex: 1,
-      minWidth: 120,
-      marginRight: 8,
-      marginBottom: 8,
+      width: "50%",
+      marginRight: SPACING_UNIT,
     },
     filterLabel: {
       fontSize: 14,
@@ -44,35 +40,39 @@ export default function PassengersScreen() {
       marginBottom: 2,
       color: colors.textColor,
     },
+    list: {
+      padding: SPACING_UNIT * 2.5,
+      paddingTop: 0,
+    },
     textInput: {
       height: 40,
       borderColor: colors.textColorSecondary,
       borderWidth: 1,
-      borderRadius: 8,
-      paddingHorizontal: 8,
+      borderRadius: SPACING_UNIT,
+      paddingHorizontal: SPACING_UNIT,
       backgroundColor: colors.cardColor,
+      color: colors.textColor,
     },
     sortContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 16,
-      paddingTop: 8,
-      paddingBottom: 4,
+      paddingHorizontal: SPACING_UNIT * 2,
       backgroundColor: colors.backgroundColor,
       zIndex: 1,
     },
     sortLabel: {
       fontSize: 16,
       fontWeight: '500',
-      marginRight: 8,
+      marginRight: SPACING_UNIT,
       color: colors.textColor,
     },
-    picker: {
-      flex: 1,
-      height: 40,
-    },
     details: {
-      gap: 8,
+      gap: SPACING_UNIT,
+    },
+    searchContainer: {
+      paddingHorizontal: SPACING_UNIT * 2,
+      paddingBottom: SPACING_UNIT * 2,
+      backgroundColor: colors.backgroundColor,
     },
   })
 
@@ -109,7 +109,7 @@ export default function PassengersScreen() {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>{t("sex")}</Text>
-          <Text style={styles.value}>{item.Sex}</Text>
+          <Text style={styles.value}>{t(item.Sex)}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>{t("age")}</Text>
@@ -137,15 +137,17 @@ export default function PassengersScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+
       <View style={styles.filterContainer}>
         <View style={styles.filterItem}>
           <Text style={styles.filterLabel}>{t("class")}</Text>
           <Picker
             selectedValue={filterPclass}
-            style={styles.picker}
             onValueChange={setFilterPclass}
+            style={{ color: colors.textColor }}
+            dropdownIconColor={colors.textColor}
           >
-            <Picker.Item label={t("all")}
+            <Picker.Item  label={t("all")}
               value="all" />
             <Picker.Item label={t("one")}
               value="1" />
@@ -155,43 +157,33 @@ export default function PassengersScreen() {
               value="3" />
           </Picker>
         </View>
+
         <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>{t("survived")}</Text>
+          <Text style={styles.filterLabel}>{t("survived")}:</Text>
           <Picker
             selectedValue={filterSurvived}
-            style={styles.picker}
             onValueChange={setFilterSurvived}
+            style={{ color: colors.textColor }}
+            dropdownIconColor={colors.textColor}
           >
             <Picker.Item label={t("all")} value="all" />
             <Picker.Item label={t("survived")} value="survived" />
             <Picker.Item label={t("didNotSurvive")} value="notSurvived" />
           </Picker>
         </View>
-        <View style={styles.filterItem}>
-          <Text style={styles.filterLabel}>{t("nameLabel")}</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder={t("searchName")}
-            value={filterName}
-            onChangeText={setFilterName}
-          />
-        </View>
       </View>
-      <View style={styles.sortContainer}>
-        <Text style={styles.sortLabel}>{t("sortBy")}</Text>
-        <Picker
-          selectedValue={sortBy}
-          style={styles.picker}
-          onValueChange={(itemValue) => setSortBy(itemValue)}
-        >
-          <Picker.Item label={t("class")}
-            value="Pclass" />
-          <Picker.Item label={t("cabin")}
-            value="Cabin" />
-          <Picker.Item label={t("nameSort")}
-            value="Name" />
-        </Picker>
+
+      <View style={styles.searchContainer}>
+        <Text style={styles.filterLabel}>{t("nameLabel")}</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder={t("searchName")}
+          value={filterName}
+          onChangeText={setFilterName}
+          placeholderTextColor={colors.textColor}
+        />
       </View>
+
       <FlatList
         data={sortedPassengers}
         renderItem={renderPassenger}

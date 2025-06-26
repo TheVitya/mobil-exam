@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { Button, StyleSheet, View, Text } from "react-native"
+import { Button, StyleSheet, View, Text, TouchableOpacity, Image } from "react-native"
 import { ROUTES } from "../constants"
 import { useTheme } from "../providers/ThemeProvider"
 import { useUser } from "../providers/UserProvider"
@@ -33,6 +33,7 @@ export default function ProfileScreen() {
       backgroundColor: colors.cardColor,
       borderRadius: 12,
       padding: 24,
+      width: "90%",
       shadowColor: "#000",
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
@@ -55,11 +56,17 @@ export default function ProfileScreen() {
       width: "100%",
       alignSelf: "center",
     },
+    profileImage: {
+      width: 150,
+      height: 150,
+      borderRadius: 50,
+      marginBottom: 24,
+    },
   })
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{t("profile")}</Text>
+      <Image source={require("../assets/me.jpg")} style={styles.profileImage} />
       <View style={styles.infoBox}>
         <Text style={styles.label}>{t("name")}</Text>
         <Text style={styles.value}>{user.name}</Text>
@@ -68,14 +75,15 @@ export default function ProfileScreen() {
         <Text style={styles.label}>{t("creator")}</Text>
         <Text style={styles.value}>Nagy Viktor 26224104</Text>
         <View style={styles.logoutButtonContainer}>
-          <Button
-            title={t("logout")}
+          <TouchableOpacity
+            style={[styles.button]}
             onPress={() => {
               logout()
               navigation.reset({ index: 0, routes: [{ name: ROUTES.LOGIN }] })
             }}
-            color={colors.primary}
-          />
+          >
+            <Text style={[styles.buttonText]}>{t("logout")}</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

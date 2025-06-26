@@ -18,6 +18,9 @@ export const darkColors = {
   textColorTertiary: "#18181b",
 };
 
+export const SPACING_UNIT = 8;
+export const FONT_SIZE_UNIT = 14;
+
 export const createSharedStyles = (colors) => StyleSheet.create({
   // Layout
   container: {
@@ -25,13 +28,13 @@ export const createSharedStyles = (colors) => StyleSheet.create({
     backgroundColor: colors.backgroundColor,
   },
   list: {
-    padding: 20,
+    padding: SPACING_UNIT * 2.5,
   },
   card: {
     backgroundColor: colors.cardColor,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
+    borderRadius: SPACING_UNIT * 1.5,
+    padding: SPACING_UNIT * 2,
+    marginBottom: SPACING_UNIT * 2,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -42,59 +45,59 @@ export const createSharedStyles = (colors) => StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 16,
+    marginBottom: SPACING_UNIT * 2,
   },
   headerColumn: {
     flex: 1,
-    marginBottom: 16,
+    marginBottom: SPACING_UNIT * 2,
   },
   headerRowStart: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginBottom: 12,
+    marginBottom: SPACING_UNIT * 1.5,
   },
 
   // Text
   title: {
-    fontSize: 18,
+    fontSize: FONT_SIZE_UNIT * 1.2857,
     fontWeight: "bold",
     color: colors.textColor,
   },
   name: {
-    fontSize: 16,
+    fontSize: FONT_SIZE_UNIT * 1.1429,
     fontWeight: "600",
     color: colors.textColor,
     flex: 1,
-    marginRight: 8,
+    marginRight: SPACING_UNIT,
   },
   subtitle: {
-    fontSize: 14,
+    fontSize: FONT_SIZE_UNIT,
     color: colors.textColorSecondary,
   },
   boldText: {
-    fontSize: 14,
+    fontSize: FONT_SIZE_UNIT,
     fontWeight: "500",
     color: colors.textColor,
   },
   value: {
-    fontSize: 14,
+    fontSize: FONT_SIZE_UNIT,
     color: colors.textColor,
     fontWeight: "400",
   },
   label: {
-    fontSize: 14,
+    fontSize: FONT_SIZE_UNIT,
     color: colors.textColorSecondary,
-    marginBottom: 2,
+    marginBottom: SPACING_UNIT * 0.25,
   },
   smallText: {
-    fontSize: 12,
+    fontSize: FONT_SIZE_UNIT * 0.8571,
     color: colors.textColorSecondary,
   },
   link: {
-    fontSize: 14,
+    fontSize: FONT_SIZE_UNIT,
     color: colors.primary,
-    marginBottom: 2,
+    marginBottom: SPACING_UNIT * 0.25,
   },
 
   // Input
@@ -102,24 +105,24 @@ export const createSharedStyles = (colors) => StyleSheet.create({
     height: 40,
     borderColor: colors.textColorSecondary,
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 8,
+    borderRadius: SPACING_UNIT,
+    paddingHorizontal: SPACING_UNIT,
     backgroundColor: colors.backgroundColor,
   },
 
   // Badges
   badge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
+    paddingHorizontal: SPACING_UNIT * 1.5,
+    paddingVertical: SPACING_UNIT * 0.75,
+    borderRadius: SPACING_UNIT * 2,
   },
   badgeSmall: {
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingHorizontal: SPACING_UNIT,
+    paddingVertical: SPACING_UNIT * 0.5,
+    borderRadius: SPACING_UNIT * 1.5,
   },
   badgeText: {
-    fontSize: 12,
+    fontSize: FONT_SIZE_UNIT * 0.8571,
     fontWeight: "500",
     color: colors.textColorTertiary,
     textAlign: "center",
@@ -134,40 +137,57 @@ export const createSharedStyles = (colors) => StyleSheet.create({
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    marginBottom: 16,
+    marginBottom: SPACING_UNIT * 2,
   },
   gridColumn: {
     flex: 1,
-    marginBottom: 16,
+    marginBottom: SPACING_UNIT * 2,
   },
   gridItem: {
     width: "50%",
-    paddingVertical: 8,
+    paddingVertical: SPACING_UNIT,
   },
 
   // Sections
   section: {
-    marginBottom: 16,
+    marginBottom: SPACING_UNIT * 2,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: FONT_SIZE_UNIT * 1.1429,
     fontWeight: "600",
     color: colors.textColor,
-    marginBottom: 8,
+    marginBottom: SPACING_UNIT,
   },
 
   // Grouped Info Box
   infoBox: {
     backgroundColor: colors.cardColor,
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 16,
+    borderRadius: SPACING_UNIT,
+    padding: SPACING_UNIT * 1.5,
+    marginBottom: SPACING_UNIT * 2,
   },
   infoValueLarge: {
-    fontSize: 18,
+    fontSize: FONT_SIZE_UNIT * 1.2857,
     fontWeight: "bold",
     color: colors.textColor,
-    marginBottom: 2,
+    marginBottom: SPACING_UNIT * 0.25,
+  },
+
+  button: {
+    paddingHorizontal: SPACING_UNIT * 3,
+    paddingVertical: SPACING_UNIT * 1.5,
+    backgroundColor: colors.primary,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  buttonText: {
+    fontSize: FONT_SIZE_UNIT * 1.1429,
+    textAlign: "center",
+    fontWeight: "600",
+    color: colors.textColorTertiary,
   },
 });
 

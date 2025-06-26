@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, StyleSheet, Text, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { useWeather } from "../hooks/useDataQueries"

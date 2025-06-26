@@ -105,6 +105,8 @@ const resources = {
       cabin: "Cabin",
       nameSort: "Name",
       loadingPassengers: "Loading passengers...",
+      male: "Male",
+      female: "Female",
 
       // PeopleScreen
       contact: "Contact",
@@ -227,6 +229,8 @@ const resources = {
       cabin: "Kabinszám",
       nameSort: "Név",
       loadingPassengers: "Utasok betöltése...",
+      male: "Férfi",
+      female: "Nő",
 
       // PeopleScreen
       contact: "Kapcsolat",

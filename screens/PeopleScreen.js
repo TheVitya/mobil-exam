@@ -1,11 +1,10 @@
 import { useTranslation } from "react-i18next"
-import { FlatList, Linking, StyleSheet, View, Text, TouchableOpacity } from "react-native"
+import { FlatList, Linking, StyleSheet, View, Text, TouchableOpacity, SafeAreaView } from "react-native"
 import ErrorMessage from "../components/ErrorMessage"
 import LoadingSpinner from "../components/LoadingSpinner"
 import { usePeople } from "../hooks/useDataQueries"
 import { useTheme } from "../providers/ThemeProvider"
 import { createSharedStyles } from "../styles"
-import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function PeopleScreen() {
   const { data: people, isLoading, error, refetch } = usePeople()
